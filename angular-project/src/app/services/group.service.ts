@@ -15,7 +15,7 @@ export class GroupService {
     return this.groupList
   }
 
-  getGroup(name:string) {
-    return this.groupList.find(group=> group.groupName == name)
+  getGroup(id:any) {
+    return this.groupList.find(group=> group.id == id)
   }
 }

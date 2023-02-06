@@ -33,16 +33,17 @@ export class GroupListComponent implements OnInit{
     this.modalLeft = event.clientY
     this.modalTop = event.clientX
     this.showModal = true
-    console.log(event)
   }
 
 
   ngOnInit() {}
   
-  func() {
-    this.router.navigate(['group'])
-
+  func(id:number) {
+    this.router.navigate(['/group',id])
   }
 
+  func2() {
+    this.router.navigate(['group'])
+  }
 
 }

@@ -42,7 +42,7 @@
       </div>
       <div *ngIf="showModal" class="modal-wrapper"[ngStyle]="{'top.px':modalLeft,'left.px':modalTop}">
         <app-modal 
-        (delete)="func()"
+        (delete)="func(group.id)"
         (modify)="modifyGroup"
         >
         </app-modal></div>
@@ -50,5 +50,6 @@
     </div>
    
   </div>
+  <button (click)="func2()">Nuovo Gruppo</button>
 </body>
 </html>
