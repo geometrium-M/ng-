@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div *ngFor="let group of groupList" class="wrapper-group" (mouseenter) ="show($event)" (mouseleave)="showModal = !showModal">
+
+      <div class="header">
+
+        <div>
+          <div>{{group.groupName}}</div>
+          <div *ngIf="group.hasOwnProperty('warning')" class="warning">{{group.warning}}</div>
+        </div>
+
+        <div class="users">
+          <div *ngFor="let user of group.users">
+            <div class="user">{{user.userInitials}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="functions">
+        <div *ngFor="let function of group.functions" class="function">
+          <div>
+            <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="">
+          </div>
+     
+          <div>
+            <p>{{function.title}}</p>
+            <div class="values">
+              <div>{{function.minValue}}</div>
+              <div>{{function.maxValue}}</div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+      <div *ngIf="showModal" class="modal-wrapper"[ngStyle]="{'top.px':modalLeft,'left.px':modalTop}"><app-modal></app-modal></div>
+
+    </div>
+   
+  </div>
+</body>
+</html>

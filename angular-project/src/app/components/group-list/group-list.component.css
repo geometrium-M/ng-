@@ -1,0 +1,73 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: rgb(235, 240, 243);
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.wrapper {
+  padding-top: 150px;
+}
+.wrapper-group {
+
+  margin: 0 40px 40px 40px;
+  border-radius: 10px;
+  background-color: rgb(253, 249, 249);
+}
+
+.values {
+  display: flex;
+}
+
+.functions {
+  display: flex;
+
+  width: 70%;
+}
+.function {
+  padding-right: 50px;
+}
+.users {
+  display: flex;
+  
+}
+.user {
+  width: 30px;
+  height: 30px;
+  background-color: grey;
+  border-radius: 100%;
+  text-align: center;
+}
+div img {
+  border: 1px solid black;
+  border-radius: 100%;
+  padding: 5px;
+}
+
+img {
+  width: 35px;
+  height: 3 5px;
+}
+
+.function {
+  display: flex;
+}
+
+.modal-wrapper {
+
+  width: 20%;
+ position: absolute;
+
+ box-shadow: 3px 3px 3px rgb(202, 201, 201);
+}
+
+
+
+
+
+
+
