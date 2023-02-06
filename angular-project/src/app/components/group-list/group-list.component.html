@@ -40,7 +40,12 @@
          
         </div>
       </div>
-      <div *ngIf="showModal" class="modal-wrapper"[ngStyle]="{'top.px':modalLeft,'left.px':modalTop}"><app-modal></app-modal></div>
+      <div *ngIf="showModal" class="modal-wrapper"[ngStyle]="{'top.px':modalLeft,'left.px':modalTop}">
+        <app-modal 
+        (delete)="func()"
+        (modify)="modifyGroup"
+        >
+        </app-modal></div>
 
     </div>
    

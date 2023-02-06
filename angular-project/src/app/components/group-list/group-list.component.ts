@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { groupList } from 'src/app/data/groupList';
+import { Component, Input, OnInit } from '@angular/core';
+
 import { IGroup } from '../model/group';
-import { ModalComponent } from '../modal/modal.component';
+
+import { GroupService } from 'src/app/services/group.service';
+import { Router } from '@angular/router'
+
 
 
 @Component({
@@ -11,10 +14,18 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class GroupListComponent implements OnInit{
 
-  groupList:IGroup[] = [...groupList]
+  constructor( private GroupService: GroupService){
+   this.groupList =  this.GroupService.getGropuList()
+
+  }
+  
+  groupList:IGroup[]
   showModal: boolean = false
   modalLeft: number
   modalTop: number
+
+  @Input() deleteGroup:boolean
+  @Input() modifyGroup:boolean
 
 
 
@@ -27,6 +38,11 @@ export class GroupListComponent implements OnInit{
 
 
   ngOnInit() {}
+  
+  func() {
+    console.log('delete')
+
+  }
 
 
 }
