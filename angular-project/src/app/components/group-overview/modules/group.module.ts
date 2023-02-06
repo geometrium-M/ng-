@@ -5,6 +5,8 @@ import { GroupOverviewComponent } from "../group-overview.component";
 import { GroupOverviewRoutingModule } from "./group-routing.module";
 
 import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from "@angular/forms";
+
 
 
 
@@ -14,7 +16,10 @@ import {MatInputModule} from '@angular/material/input';
     imports : [
         GroupOverviewRoutingModule,
         CommonModule,
-        MatInputModule
+        MatInputModule,
+        FormsModule
+        
+      
     ],
     declarations: [GroupOverviewComponent]
 })

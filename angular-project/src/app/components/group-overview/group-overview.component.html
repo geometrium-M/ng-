@@ -8,29 +8,88 @@
 </head>
 <body>
   <div class="wrapper-details">
-    <div class="details">
+    <div>
       <h3>Dettagli gruppo di firma</h3>
       <div class="wrapper-group">
-        <div class="group">
-          <input type="text" name="" id="" placeholder="">
-          <input type="text" name="" id="">
-          <input type="text" name="" id="">
-        </div>
-        <div class="users"></div>
-      </div>
-    
 
-    </div>
-  </div>
-  <div>
-    <div class="services-wrapper">
-      <div></div>
-    </div>
-    <div class="users-wrapper">
-      <div>
+        <form class="example-form">
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <div>Nome gruppo</div>
+                <mat-form-field class="example-full-width">
+                  <mat-label>{{group?.groupName}}</mat-label>
+                  <input matInput>
+                </mat-form-field>
+              </td>
+              <td>
+                <div>Soglia minima servizi</div>
+                <mat-form-field class="example-full-width">
+                  <mat-label>{{group?.minValue}}</mat-label>
+                  <input matInput>
+                </mat-form-field>
+              </td>
+              <td>
+                <div>Soglia massima servizi</div>
+                <mat-form-field class="example-full-width">
+                  <mat-label>{{group?.maxValue}}</mat-label>
+                  <input matInput>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+        </form>
+        <div class="users">
+          <div *ngFor="let user of group?.users">
+            <div class="user">{{user.userInitials}}</div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div class="details">
+      <div class="services-wrapper">
+        <h3>Abilita servizi per gruppo di firma</h3>
+      
+        <div class="services">
+          <table>
+            <tr>
+              <th>Servizio</th>
+              <th>Soglia minima</th>
+              <th>Soglia massima</th>
+            </tr>
+            <tr *ngFor="let functionEl of functionsList">
+              <td>{{functionEl.function_name}}</td>
+              <div *ngFor="let function of group?.functions">
+
+                <div *ngIf="functionEl.function_name == function.title">
+                  <td>{{function.minValue}}</td>
+                  <td>{{function.maxValue}}</td>
+                </div>
+                <!-- <ng-template #temp>
+                  <td>0</td>
+                  <td>0</td>
+                </ng-template> -->
+                
+               
+              
+              </div>
+           
+            </tr>
+            <!-- <tr *ngFor="let function of group?.functions"></tr> -->
+          </table>
+         
+        </div>
+      </div>
+      <div class="users-wrapper">
+        <div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
+  
   
 </body>
 </html>

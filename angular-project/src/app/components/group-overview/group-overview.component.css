@@ -1,0 +1,35 @@
+
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+
+.wrapper-group {
+  display: flex;
+  justify-content: space-between;
+}
+.users {
+  display: flex;
+  
+}
+.user {
+  width: 30px;
+  height: 30px;
+  background-color: grey;
+  border-radius: 100%;
+  text-align: center;
+}
+
+td {
+  border: 1px solid black;
+}
