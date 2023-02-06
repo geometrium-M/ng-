@@ -14,7 +14,7 @@ import { Router } from '@angular/router'
 })
 export class GroupListComponent implements OnInit{
 
-  constructor( private GroupService: GroupService){
+  constructor( private GroupService: GroupService, private router:Router){
    this.groupList =  this.GroupService.getGropuList()
 
   }
@@ -40,7 +40,7 @@ export class GroupListComponent implements OnInit{
   ngOnInit() {}
   
   func() {
-    console.log('delete')
+    this.router.navigate(['group'])
 
   }
 

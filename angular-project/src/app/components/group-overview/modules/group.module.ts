@@ -15,4 +15,4 @@ import { GroupOverviewRoutingModule } from "./group-routing.module";
     declarations: [GroupOverviewComponent]
 })
 
-export class NewsModule { }
+export class GroupModule { }
