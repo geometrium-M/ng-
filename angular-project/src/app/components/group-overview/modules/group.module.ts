@@ -6,6 +6,9 @@ import { GroupOverviewRoutingModule } from "./group-routing.module";
 
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from "@angular/forms";
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -17,7 +20,10 @@ import { FormsModule } from "@angular/forms";
         GroupOverviewRoutingModule,
         CommonModule,
         MatInputModule,
-        FormsModule
+        FormsModule,
+        MatSlideToggleModule,
+        MatCheckboxModule
+
         
       
     ],

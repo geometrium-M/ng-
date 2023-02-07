@@ -1,4 +1,6 @@
-
+body {
+  background-color: rgb(227, 237, 241);
+}
 
 .example-form {
   min-width: 150px;
@@ -30,6 +32,77 @@ td {
   text-align: center;
 }
 
-td {
-  border: 1px solid black;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.services-wrapper {
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.services {
+  
+  width: 47%;
+  padding: 20px;
+
+  background-color: white;
+  border-radius: 20px;
+}
+
+.values {
+  display: flex;
+}
+
+.service {
+ 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.serviceName {
+  width: 40%;
+}
+.newUsers {
+  width: 47%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+
+}
+
+ul {
+  list-style: none;
+}
+
+.value {
+  max-width: 25%;
+}
+
+h3 {
+  margin: 0;
+}
+
+.wrapper-details {
+
+  background-color: white;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+
+
+}
+
+.wrapper {
+  padding: 0 50px;
+  padding-top: 100px;
+}
+
+.actions {
+  position: relative;
+  left: 90%;
 }

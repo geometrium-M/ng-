@@ -7,11 +7,11 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="wrapper-details">
-    <div>
+
+  <div class="wrapper">
+    <div class="wrapper-details">
       <h3>Dettagli gruppo di firma</h3>
       <div class="wrapper-group">
-
         <form class="example-form">
           <table class="example-full-width" cellspacing="0">
             <tr>
@@ -49,46 +49,77 @@
 
     <div class="details">
       <div class="services-wrapper">
-        <h3>Abilita servizi per gruppo di firma</h3>
+       
       
         <div class="services">
-          <table>
-            <tr>
-              <th>Servizio</th>
-              <th>Soglia minima</th>
-              <th>Soglia massima</th>
-            </tr>
-            <tr *ngFor="let functionEl of functionsList">
-              <td>{{functionEl.function_name}}</td>
-              <div *ngFor="let function of group?.functions">
+          <h3>Abilita servizi per gruppo di firma</h3>
+          <h4>Seleziona i servizi e imposta la relativa soglia</h4>
+    
+          <div class="header">
+            <div>Servizio</div>
+            <div>Soglia minima</div>
+            <div>Soglia massima</div>
+          </div>
 
-                <div *ngIf="functionEl.function_name == function.title">
-                  <td>{{function.minValue}}</td>
-                  <td>{{function.maxValue}}</td>
-                </div>
-                <!-- <ng-template #temp>
-                  <td>0</td>
-                  <td>0</td>
-                </ng-template> -->
-                
-               
-              
-              </div>
-           
-            </tr>
-            <!-- <tr *ngFor="let function of group?.functions"></tr> -->
-          </table>
-         
+         <div *ngFor="let function of functionsList" class="service">
+
+          <mat-slide-toggle></mat-slide-toggle>
+            <div class="serviceName">{{function.function_name}}</div>
+
+            <mat-form-field class="value">
+              <mat-label>{{function.minValue}}</mat-label>
+              <input matInput>
+            </mat-form-field>
+
+            <mat-form-field class="value">
+              <mat-label>{{function.maxValue}}</mat-label>
+              <input matInputcd ..>
+            </mat-form-field>
+
+         </div>
+
         </div>
-      </div>
-      <div class="users-wrapper">
-        <div>
+
+
+        <div class="newUsers">
+          <h3>Seleziona utenti da aggiungere al gruppo</h3>
+          <h4>Sono disponibili solo gli utenti dispositivi</h4>
+          <mat-form-field class="example-full-width">
+            <mat-label>Filtra</mat-label>
+            <input matInput>
+          </mat-form-field>
+
+          <ul>
+              <li *ngFor="let newUser of newUsers">
+                  <input type="checkbox" name="" id="">
+                  {{newUser.fullName}}
+              </li>
+          </ul>
         </div>
+  
       </div>
+      <div class="actions">
+        <button>Indietro</button>
+        <div *ngIf="newGroup; else modify">
+          <button>Salva</button>
+        </div>
+        <ng-template #modify>
+          <button>Modifica</button>
+        </ng-template>
+       
+      </div>
+      
     </div>
-
-
+  
   </div>
+
+  
+  
+
+
+
+
+  
   
   
 </body>
