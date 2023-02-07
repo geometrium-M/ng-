@@ -103,6 +103,7 @@ h3 {
 }
 
 .actions {
+  display: flex;
   position: relative;
   left: 90%;
 }

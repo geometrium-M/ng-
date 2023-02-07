@@ -8,24 +8,30 @@ import { functionsList } from '../data/functions';
 })
 export class FunctionsService {
 
-  functionsList:IFunctionElement[] = [...functionsList]
+  functionsList:IFunctionElement[] = functionsList
 
   constructor() { }
 
 
   getFunc(functions:Array<IFunction>) {
+    console.log(functionsList)
+    let funcList = [...this.functionsList]
+    console.log(funcList)
 
     if(functions) {
       for (let i=0; i< functions.length; i++) {
-        for(let j=0;j<functionsList.length; j++) {
-          if(functions[i].title == functionsList[j].function_name) {
-            functionsList[j].minValue = functions[i].minValue
-            functionsList[j].maxValue = functions[i].maxValue
+        for(let j=0;j<funcList.length; j++) {
+          if(functions[i].title == funcList[j].function_name) {
+            funcList[j].minValue = functions[i].minValue
+            funcList[j].maxValue = functions[i].maxValue
           }
         }
       }
     }
-    return this.functionsList
+    return funcList
   }
+
+  
+
 
 }

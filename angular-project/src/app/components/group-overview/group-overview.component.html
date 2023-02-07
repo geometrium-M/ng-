@@ -49,6 +49,7 @@
 
     <div class="details">
       <div class="services-wrapper">
+
        
       
         <div class="services">
@@ -73,7 +74,7 @@
 
             <mat-form-field class="value">
               <mat-label>{{function.maxValue}}</mat-label>
-              <input matInputcd ..>
+              <input matInput>
             </mat-form-field>
 
          </div>
@@ -96,18 +97,19 @@
               </li>
           </ul>
         </div>
-  
       </div>
       <div class="actions">
-        <button>Indietro</button>
-        <div *ngIf="newGroup; else modify">
+        <div>
+          <button (click)="goToMain()">Indietro</button>
+        </div>
+        <div *ngIf="newGroup;else modify">
           <button>Salva</button>
         </div>
-        <ng-template #modify>
+        <ng-template #modify  >
           <button>Modifica</button>
         </ng-template>
-       
       </div>
+
       
     </div>
   

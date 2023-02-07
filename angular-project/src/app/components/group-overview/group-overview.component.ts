@@ -1,5 +1,7 @@
 import { Component,OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
+
+
 import { IGroup } from '../model/group';
 import { GroupService } from 'src/app/services/group.service';
 
@@ -21,8 +23,13 @@ export class GroupOverviewComponent implements OnInit {
     private route:ActivatedRoute, 
     private GroupService: GroupService, 
     private userService:UsersService,
-    private functionsService: FunctionsService
-  ) {}
+    private functionsService: FunctionsService,
+    private router:Router
+  ) {
+    
+    
+ 
+  }
 
   group?:IGroup;
   functionsList:IFunctionElement[]
@@ -54,10 +61,18 @@ export class GroupOverviewComponent implements OnInit {
 
     console.log(this.group?.functions)
     this.functions = this.group?.functions
-    
+
 
     this.functionsList = this.functionsService.getFunc(this.functions)
+    
+
+
 
 
   }
+  goToMain() {
+    this.router.navigate([''])
+
+  }
+
 }

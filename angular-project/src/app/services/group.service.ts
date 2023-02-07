@@ -7,7 +7,7 @@ import { IGroup } from '../components/model/group';
 })
 export class GroupService {
 
-  groupList:IGroup[] = [...groupList]
+  groupList:IGroup[] = groupList
 
   constructor() { }
 
@@ -17,5 +17,9 @@ export class GroupService {
 
   getGroup(id:any) {
     return this.groupList.find(group=> group.id == id)
+  }
+
+  addGroup(group:IGroup) {
+    this.groupList.push(group)
   }
 }

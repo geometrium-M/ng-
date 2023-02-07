@@ -7,6 +7,7 @@
   <title>Document</title>
 </head>
 <body>
+
   <div class="wrapper">
     <div *ngFor="let group of groupList" class="wrapper-group" (mouseenter) ="show($event)" (mouseleave)="showModal = !showModal">
 
@@ -45,9 +46,12 @@
         (delete)="func(group.id)"
         (modify)="func(group.id)"
         >
-        </app-modal></div>
+        </app-modal>
+      </div>
+     
 
-    </div>
+      </div>
+      
    
   </div>
   <button (click)="func2()">Nuovo Gruppo</button>

@@ -9,6 +9,7 @@ import { FormsModule } from "@angular/forms";
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 
@@ -22,7 +23,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         MatInputModule,
         FormsModule,
         MatSlideToggleModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatFormFieldModule
 
         
       
