@@ -12,33 +12,37 @@
     <div class="wrapper-details">
       <h3>Dettagli gruppo di firma</h3>
       <div class="wrapper-group">
-        <form class="example-form">
-          <table class="example-full-width" cellspacing="0">
-            <tr>
-              <td>
-                <div>Nome gruppo</div>
-                <mat-form-field class="example-full-width">
-                  <mat-label>{{group?.groupName}}</mat-label>
-                  <input matInput>
-                </mat-form-field>
-              </td>
-              <td>
-                <div>Soglia minima servizi</div>
-                <mat-form-field class="example-full-width">
-                  <mat-label>{{group?.minValue}}</mat-label>
-                  <input matInput>
-                </mat-form-field>
-              </td>
-              <td>
-                <div>Soglia massima servizi</div>
-                <mat-form-field class="example-full-width">
-                  <mat-label>{{group?.maxValue}}</mat-label>
-                  <input matInput>
-                </mat-form-field>
-              </td>
-            </tr>
-          </table>
+        <form [formGroup]="form">
+          <fieldset>
+            <table class="example-full-width" cellspacing="0">
+              <tr>
+                <td>
+                  <div>Nome gruppo</div>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>{{group?.groupName}}</mat-label>
+                    <input matInput formControlName="groupTitle">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <div>Soglia minima servizi</div>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>{{group?.minValue}}</mat-label>
+                    <input matInput formControlName="groupMinValue">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <div>Soglia massima servizi</div>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>{{group?.maxValue}}</mat-label>
+                    <input matInput formControlName="groupMaxValue">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
         </form>
+
         <div class="users">
           <div *ngFor="let user of group?.users">
             <div class="user">{{user.userInitials}}</div>
@@ -49,9 +53,6 @@
 
     <div class="details">
       <div class="services-wrapper">
-
-       
-      
         <div class="services">
           <h3>Abilita servizi per gruppo di firma</h3>
           <h4>Seleziona i servizi e imposta la relativa soglia</h4>
@@ -62,26 +63,29 @@
             <div>Soglia massima</div>
           </div>
 
-         <div *ngFor="let function of functionsList" class="service">
+          <form [formGroup]="form">
+            <fieldset>
+              <div *ngFor="let function of functionsList" class="service">
 
-          <mat-slide-toggle></mat-slide-toggle>
-            <div class="serviceName">{{function.function_name}}</div>
+                <mat-slide-toggle [(ngModel)]="function.minValue" [ngModelOptions]="{standalone: true}"></mat-slide-toggle>
+                  <div class="serviceName">{{function.function_name}}</div>
+              
+                      <mat-form-field class="value">
+                        <mat-label>{{function.minValue}}</mat-label>
+                        <input matInput formControlName="funcMinValue" #input>
+                      </mat-form-field>
+          
+                      <mat-form-field class="value">
+                        <mat-label></mat-label>
+                        <input matInput placeholder="Ex. Pizza" [value]="function.maxValue" formControlName="funcMaxValue">
+                      </mat-form-field>
+               
+            
+                  </div>
 
-            <mat-form-field class="value">
-              <mat-label>{{function.minValue}}</mat-label>
-              <input matInput>
-            </mat-form-field>
-
-            <mat-form-field class="value">
-              <mat-label>{{function.maxValue}}</mat-label>
-              <input matInput>
-            </mat-form-field>
-
-         </div>
-
+            </fieldset>
+          </form>
         </div>
-
-
         <div class="newUsers">
           <h3>Seleziona utenti da aggiungere al gruppo</h3>
           <h4>Sono disponibili solo gli utenti dispositivi</h4>
@@ -100,13 +104,15 @@
       </div>
       <div class="actions">
         <div>
-          <button (click)="goToMain()">Indietro</button>
+          <button (click)="goToMain()" ng-disabled="!newGroup">Indietro</button>
         </div>
-        <div *ngIf="newGroup;else modify">
-          <button>Salva</button>
-        </div>
-        <ng-template #modify  >
+    
+        <div *ngIf="showGroup;else salva">
           <button>Modifica</button>
+        </div>
+
+        <ng-template #salva>
+          <button (click)="createGroup()">Salva</button>
         </ng-template>
       </div>
 
@@ -114,6 +120,18 @@
     </div>
   
   </div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Favorite food</mat-label>
+      <input matInput placeholder="Ex. Pizza" value="Sushi">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Leave a comment</mat-label>
+      <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+    </mat-form-field>
+  </form>
+
 
   
   

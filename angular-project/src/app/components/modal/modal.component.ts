@@ -1,4 +1,4 @@
-import { Component,Output,EventEmitter } from '@angular/core';
+import { Component,Output,EventEmitter,Input } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -9,12 +9,15 @@ export class ModalComponent {
   @Output() delete = new EventEmitter()
   @Output() modify = new EventEmitter()
 
+  @Input() showM:boolean
+
 
   deleteGroupElement() {
     this.delete.emit()
   }
 
-  modifyGroupElement() {
+  modifyGroupElement(e:Event) {
+    e.stopPropagation()
     this.modify.emit()
   }
 

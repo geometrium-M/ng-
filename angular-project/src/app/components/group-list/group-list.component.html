@@ -9,51 +9,55 @@
 <body>
 
   <div class="wrapper">
-    <div *ngFor="let group of groupList" class="wrapper-group" (mouseenter) ="show($event)" (mouseleave)="showModal = !showModal">
+    <div >
+      <div *ngFor="let group of groupList" class="wrapper-group" (mouseleave)="showModal = !showModal" (click)="openGroup(group.id)"(mouseenter)="show($event)">
+      
 
-      <div class="header">
+        <app-modal 
+          class="modal-wrapper"
+          (modify)="modifGroup(group.id,group.groupName)"
+          (delete)="deleteGroup(group.id)"
 
-        <div>
-          <div>{{group.groupName}}</div>
-          <div *ngIf="group.hasOwnProperty('warning')" class="warning">{{group.warning}}</div>
-        </div>
-
-        <div class="users">
-          <div *ngFor="let user of group.users">
-            <div class="user">{{user.userInitials}}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="functions">
-        <div *ngFor="let function of group.functions" class="function">
+        ></app-modal>
+  
+        <div class="header">
           <div>
-            <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="">
+            <div>{{group.groupName}}</div>
+            <div *ngIf="group.hasOwnProperty('warning')" class="warning">{{group.warning}}</div>
           </div>
-     
-          <div>
-            <p>{{function.title}}</p>
-            <div class="values">
-              <div>{{function.minValue}}</div>
-              <div>{{function.maxValue}}</div>
+  
+          <div class="users">
+            <div *ngFor="let user of group.users">
+              <div class="user">{{user.userInitials}}</div>
             </div>
           </div>
-         
         </div>
-      </div>
-      <div *ngIf="showModal" class="modal-wrapper"[ngStyle]="{'top.px':modalLeft,'left.px':modalTop}">
-        <app-modal 
-        (delete)="func(group.id)"
-        (modify)="func(group.id)"
-        >
-        </app-modal>
-      </div>
-     
-
-      </div>
+  
+        <div class="functions">
+          <div *ngFor="let function of group.functions" class="function">
+            <div>
+              <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="">
+            </div>
+       
+            <div>
+              <p>{{function.title}}</p>
+              <div class="values">
+                <div>{{function.minValue}}</div>
+                <div>{{function.maxValue}}</div>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+  
+       
+  
+        </div>
+    </div>
+   
       
    
   </div>
-  <button (click)="func2()">Nuovo Gruppo</button>
+  <button (click)="createNewGroup()">Nuovo Gruppo</button>
 </body>
 </html>

@@ -15,7 +15,7 @@ export class FunctionsService {
 
   getFunc(functions:Array<IFunction>) {
     console.log(functionsList)
-    let funcList = [...this.functionsList]
+    let funcList = JSON.parse(JSON.stringify(this.functionsList))
     console.log(funcList)
 
     if(functions) {
@@ -27,11 +27,13 @@ export class FunctionsService {
           }
         }
       }
+      return funcList
     }
-    return funcList
-  }
-
+    else 
+      return this.functionsList
+    
   
-
+    
+  }
 
 }

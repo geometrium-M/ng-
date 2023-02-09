@@ -1,9 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
 
 import { IGroup } from '../model/group';
 
 import { GroupService } from 'src/app/services/group.service';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+
+import { GroupActionsService } from 'src/app/services/group-actions.service';
+import { group } from '@angular/animations';
 
 
 
@@ -14,9 +17,12 @@ import { Router } from '@angular/router'
 })
 export class GroupListComponent implements OnInit{
 
-  constructor( private GroupService: GroupService, private router:Router){
+  constructor( 
+    private GroupService: GroupService, 
+    private router:Router,
+    private actions:GroupActionsService
+  ){
    this.groupList =  this.GroupService.getGropuList()
-
   }
   
   groupList:IGroup[]
@@ -24,26 +30,37 @@ export class GroupListComponent implements OnInit{
   modalLeft: number
   modalTop: number
 
-  @Input() deleteGroup:boolean
-  @Input() modifyGroup:boolean
 
 
+  show(e:Event) {
+    e.stopPropagation()
 
-  show(event:any) {
-    this.modalLeft = event.clientY
-    this.modalTop = event.clientX
+    // this.modalLeft = event.clientY
+    // this.modalTop = event.clientX
     this.showModal = true
+
   }
 
 
   ngOnInit() {}
-  
-  func(id:number) {
+
+  modifGroup(id:number, name:string) {
+    console.log(name)
+    
     this.router.navigate(['/group',id])
   }
 
-  func2() {
-    this.router.navigate(['group'])
+  openGroup(id:number) { 
+    this.actions.toShowGroup()
+    this.router.navigate(['/group',id])
+  }
+
+  createNewGroup() {
+    this.router.navigate(['/group'])
+  }
+
+  deleteGroup(id:number) {
+    this.GroupService.deteleGroup(id)
   }
 
 }
