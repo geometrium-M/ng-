@@ -18,7 +18,7 @@ export class UsersService {
     if(users) {
       return this.newUsersList.filter(newUser => {
         return !users.some(user => {
-          return newUser.fullName === user.fullName
+          return newUser.userId === user.userId
         })
       })
     } 

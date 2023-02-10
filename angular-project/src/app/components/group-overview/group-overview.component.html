@@ -12,37 +12,19 @@
     <div class="wrapper-details">
       <h3>Dettagli gruppo di firma</h3>
       <div class="wrapper-group">
-        <form [formGroup]="form">
-          <fieldset>
-            <table class="example-full-width" cellspacing="0">
-              <tr>
-                <td>
-                  <div>Nome gruppo</div>
-                  <mat-form-field class="example-full-width">
-                    <mat-label>{{group?.groupName}}</mat-label>
-                    <input matInput formControlName="groupTitle">
-                  </mat-form-field>
-                </td>
-                <td>
-                  <div>Soglia minima servizi</div>
-                  <mat-form-field class="example-full-width">
-                    <mat-label>{{group?.minValue}}</mat-label>
-                    <input matInput formControlName="groupMinValue">
-                  </mat-form-field>
-                </td>
-                <td>
-                  <div>Soglia massima servizi</div>
-                  <mat-form-field class="example-full-width">
-                    <mat-label>{{group?.maxValue}}</mat-label>
-                    <input matInput formControlName="groupMaxValue">
-                  </mat-form-field>
-                </td>
-              </tr>
-            </table>
-          </fieldset>
-
-        </form>
-
+          <form [formGroup]="groupForm">
+            <div>
+              <mat-form-field>
+                <input matInput formControlName="groupName">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="groupMinValue">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="groupMaxValue">
+              </mat-form-field>    
+            </div>
+          </form>
         <div class="users">
           <div *ngFor="let user of group?.users">
             <div class="user">{{user.userInitials}}</div>
@@ -62,46 +44,58 @@
             <div>Soglia minima</div>
             <div>Soglia massima</div>
           </div>
-
-          <form [formGroup]="form">
-            <fieldset>
-              <div *ngFor="let function of functionsList" class="service">
-
-                <mat-slide-toggle [(ngModel)]="function.minValue" [ngModelOptions]="{standalone: true}"></mat-slide-toggle>
-                  <div class="serviceName">{{function.function_name}}</div>
-              
-                      <mat-form-field class="value">
-                        <mat-label>{{function.minValue}}</mat-label>
-                        <input matInput formControlName="funcMinValue" #input>
-                      </mat-form-field>
-          
-                      <mat-form-field class="value">
-                        <mat-label></mat-label>
-                        <input matInput placeholder="Ex. Pizza" [value]="function.maxValue" formControlName="funcMaxValue">
-                      </mat-form-field>
-               
-            
+          <form [formGroup]="groupForm" > 
+            <div *ngFor="let func of functionsNew" class="service">
+              <mat-slide-toggle [checked]="isChecked(func.function_code)"></mat-slide-toggle>
+             <div class="serviceName">{{func.function_name}}</div>
+              <div formArrayName="functions">
+                  <div *ngFor="let child of groupForm.get('functions')!.value; let i = index">
+                    <div [formGroupName]="i">
+                      <div *ngIf="child.id === func.function_code;else elseBlock">                        
+                          <input matInput formControlName="minValue">
+                          <input matInput formControlName="maxValue">
+                      </div>     
+                      <ng-template #elseBlock>
+                   
+                          <input matInput>
+                    
+                        
+                          <input matInput>
+                       
+                     
+                      </ng-template> 
+                    </div>
                   </div>
-
-            </fieldset>
+                </div>
+              </div>
           </form>
+
+          
         </div>
         <div class="newUsers">
           <h3>Seleziona utenti da aggiungere al gruppo</h3>
           <h4>Sono disponibili solo gli utenti dispositivi</h4>
-          <mat-form-field class="example-full-width">
-            <mat-label>Filtra</mat-label>
-            <input matInput>
-          </mat-form-field>
 
-          <ul>
-              <li *ngFor="let newUser of newUsers">
-                  <input type="checkbox" name="" id="">
-                  {{newUser.fullName}}
-              </li>
-          </ul>
+          <form [formGroup]="groupForm">
+            <mat-form-field class="example-full-width">
+              <mat-label>Filtra</mat-label>
+              <input matInput>
+            </mat-form-field>
+           
+            <div formArrayName="users">
+       
+                <div *ngFor="let user of newUsers" class="users">
+                    <p><mat-checkbox ></mat-checkbox></p>
+                  
+                    {{user.fullName}}
+                </div>
+            </div>
+          </form>
+
         </div>
       </div>
+
+      
       <div class="actions">
         <div>
           <button (click)="goToMain()" ng-disabled="!newGroup">Indietro</button>
@@ -112,7 +106,7 @@
         </div>
 
         <ng-template #salva>
-          <button (click)="createGroup()">Salva</button>
+          <button>Salva</button>
         </ng-template>
       </div>
 
@@ -120,17 +114,17 @@
     </div>
   
   </div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Favorite food</mat-label>
-      <input matInput placeholder="Ex. Pizza" value="Sushi">
-    </mat-form-field>
-  
-    <mat-form-field class="example-full-width">
-      <mat-label>Leave a comment</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-    </mat-form-field>
-  </form>
+<pre>{{groupForm.value | json}}</pre>
+
+
+
+
+
+
+
+
+ 
+
 
 
   

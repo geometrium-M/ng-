@@ -53,12 +53,14 @@ td {
 .service {
  
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+ 
 
 }
 .serviceName {
+  padding-left: 20px;
   width: 40%;
+
 }
 .newUsers {
   width: 47%;
@@ -103,4 +105,12 @@ h3 {
 
 fieldset {
   border: none;
+}
+
+.functionRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
 }

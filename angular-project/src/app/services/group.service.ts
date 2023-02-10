@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { groupList } from '../data/groupList';
+import { functionsList } from '../data/functions';
 import { IGroup } from '../components/model/group';
 import { Observable } from 'rxjs';
 
@@ -9,6 +10,7 @@ import { Observable } from 'rxjs';
 export class GroupService {
 
   groupList:IGroup[] = groupList
+  newGroup:IGroup
 
   constructor() { }
 
@@ -19,6 +21,14 @@ export class GroupService {
   getGroup(id:any) {
     return this.groupList.find(group=> group.id == id)
   }
+
+  getEmptyGroup() {
+    return this.newGroup
+  }
+
+
+    
+  
 
   addGroup(group:IGroup) {
     

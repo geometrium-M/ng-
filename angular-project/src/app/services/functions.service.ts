@@ -31,9 +31,10 @@ export class FunctionsService {
     }
     else 
       return this.functionsList
-    
-  
-    
+  }
+
+  getFunctionsList() {
+    return this.functionsList
   }
 
 }
