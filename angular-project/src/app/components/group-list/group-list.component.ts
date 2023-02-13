@@ -48,15 +48,17 @@ export class GroupListComponent implements OnInit{
     console.log(name)
     
     this.router.navigate(['/group',id])
+    this.actions.disableForm(false)
   }
 
   openGroup(id:number) { 
-    this.actions.toShowGroup()
     this.router.navigate(['/group',id])
+    this.actions.disableForm(true)
   }
 
   createNewGroup() {
     this.router.navigate(['/group'])
+    this.actions.disableForm(false)
   }
 
   deleteGroup(id:number) {

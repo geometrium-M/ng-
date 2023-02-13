@@ -18,6 +18,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { ModalComponent } from '../modal/modal.component';
 
 import { GroupActionsService } from 'src/app/services/group-actions.service';
+import { concat } from 'rxjs';
 
 
 
@@ -64,19 +65,8 @@ export class GroupOverviewComponent implements OnInit {
 
   isGroupFunction:boolean= false
 
-  // form = new FormGroup({ 
-  //   groupMinValue: new FormControl(),
-  //   groupMaxValue:new FormControl(),
-  //   funcMinValue:new FormControl(),
-  //   funcMaxValue:new FormControl([{value:''}]),
-  //   groupTitle:new FormControl(),
 
- 
 
-  // })
-
-  
-    
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')
@@ -84,39 +74,31 @@ export class GroupOverviewComponent implements OnInit {
    let findGroup = id?  this.GroupService.getGroup(id) : this.GroupService.getEmptyGroup()
    this.group = findGroup
 
-   console.log(this.group)
 
-  //  this.detailsForm = this.fb.group({
-  //   groupName: new FormControl(),
-  //   groupMaxValue: new FormControl(),
-  //   groupMinValue: new FormControl(),
-
-  //  });
 
     this.groupForm = this.fb.group({
-      groupName: new FormControl(),
+      groupName: this.fb.control,
       groupMaxValue: new FormControl(),
       groupMinValue: new FormControl(),
       functions:this.fb.array([]),
       users:this.fb.array([]),
+      filterUsers:this.fb.control('')
 
 
     });
+    this.functionsNew = this.functionsService.getFunctionsList()
 
     this.patch()
 
-    this.functionsNew = this.functionsService.getFunctionsList()
-
-
-
-    if(this.actions.getShowGroup()) {
-      this.showGroup = true
-    } 
-
-    if(this.actions.modifGroup) {
-      this.modifGroup = true
-    }
   
+
+    if(this.actions.getDiasbleForm()) {
+      this.showGroup = true
+      this.groupForm.disable()
+    }
+
+    
+   
 
 
     this.newUsers = this.userService.getNewUsers(this.users!) 
@@ -135,15 +117,28 @@ export class GroupOverviewComponent implements OnInit {
     const functionsControl = <FormArray>this.groupForm.get('functions');
     const usersControl = <FormArray>this.groupForm.get('users');
     
-    this.group?.functions.forEach(func=> {
-      functionsControl.push(this.patchValues(func.title, func.functionCode!, func.minValue,func.maxValue))
-    })
+
+
+    for(let i=0;i<this.functionsNew.length;i++) {
+
+       let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name ) 
+       console.log(same)
+    
+        if(same) {
+          functionsControl.push(this.patchValues(same.title, same.functionCode!, same.minValue, same.maxValue))
+        }  
+            
+      if(!same) {
+        functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code, '0', '0'))
+      }
+
+    }
 
 
     this.users = this.group?.users
     console.log(this.users)
     this.users?.forEach(user=>{
-      usersControl.push(this.patchValuesUsers(user.fullName,user.userId))
+      usersControl.push(this.patchValuesUsers(user.fullName,user.userId, user.userInitials!))
     })
 
 
@@ -161,16 +156,18 @@ export class GroupOverviewComponent implements OnInit {
         title: [title],
         minValue: [minValue],
         maxValue: [maxValue],
-        id:[functionCode],
+        functionCode:[functionCode],
       
   
 
     })
   }
-  patchValuesUsers(fullName:string,userId:string) {
+  patchValuesUsers(fullName:string,userId:string, userInitials:string) {
     return this.fb.group({
       fullName: [fullName],
       userId: [userId],
+      userInitials: [userInitials]
+
     })
   }
 
@@ -207,6 +204,12 @@ export class GroupOverviewComponent implements OnInit {
       if(fn.functionCode == id) flag = true      
     });
     return flag
+  }
+
+  changeGroup() {
+    this.showGroup = false
+    this.groupForm.enable()
+   
   }
 
 }

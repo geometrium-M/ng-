@@ -9,29 +9,17 @@ export class GroupActionsService {
 @ViewChild('functions') func:ElementRef;
 
 
-  public showGroup:boolean = false
-  public modifGroup:boolean = false
+ public disable:boolean
   
 
   constructor() { }
 
- toShowGroup() {
-  this.showGroup = true
+ disableForm(value:boolean) {
+  this.disable = value
  }
 
- getShowGroup() {
-  return this.showGroup
+ getDiasbleForm() {
+  return this.disable
  }
-
- toModifGroup() {
-  this.modifGroup = true
- }
-
-//  createGroup() {
-//   console.log(this.func.nativeElement.getElementsbyTagName('input'))
-
-//  }
-
-
 
 }

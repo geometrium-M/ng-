@@ -12,7 +12,7 @@
     <div class="wrapper-details">
       <h3>Dettagli gruppo di firma</h3>
       <div class="wrapper-group">
-          <form [formGroup]="groupForm">
+          <form [formGroup]="groupForm" class="details">
             <div>
               <mat-form-field>
                 <input matInput formControlName="groupName">
@@ -24,16 +24,19 @@
                 <input matInput formControlName="groupMaxValue">
               </mat-form-field>    
             </div>
-          </form>
-        <div class="users">
-          <div *ngFor="let user of group?.users">
-            <div class="user">{{user.userInitials}}</div>
+            <div formArrayName="users" class="users">
+              <div *ngFor="let child of groupForm.get('users')!.value" class="user">
+                  <div>{{child.userInitials}}</div>
+              </div>
           </div>
-        </div>
+          </form>
+     
+
+      
       </div>
     </div>
 
-    <div class="details">
+    <div>
       <div class="services-wrapper">
         <div class="services">
           <h3>Abilita servizi per gruppo di firma</h3>
@@ -44,55 +47,49 @@
             <div>Soglia minima</div>
             <div>Soglia massima</div>
           </div>
-          <form [formGroup]="groupForm" > 
-            <div *ngFor="let func of functionsNew" class="service">
-              <mat-slide-toggle [checked]="isChecked(func.function_code)"></mat-slide-toggle>
-             <div class="serviceName">{{func.function_name}}</div>
+          <form [formGroup]="groupForm"> 
               <div formArrayName="functions">
+           
                   <div *ngFor="let child of groupForm.get('functions')!.value; let i = index">
-                    <div [formGroupName]="i">
-                      <div *ngIf="child.id === func.function_code;else elseBlock">                        
-                          <input matInput formControlName="minValue">
-                          <input matInput formControlName="maxValue">
-                      </div>     
-                      <ng-template #elseBlock>
-                   
-                          <input matInput>
-                    
-                        
-                          <input matInput>
-                       
-                     
-                      </ng-template> 
+           
+                    <div [formGroupName]="i" class="service">
+                      <div>
+                        <mat-slide-toggle formControlName="minValue"></mat-slide-toggle>
+                      </div>
+                  
+                      <!-- <mat-slide-toggle [checked]="isChecked(child.functionCode)"></mat-slide-toggle> -->
+                      <label class="serviceName">{{child.title}}</label>
+                      <div>
+                        <input formControlName="minValue">
+                        <input formControlName="maxValue">
+                      </div>
+               
                     </div>
                   </div>
                 </div>
+          </form>
+        </div>
+              <div class="newUsers">
+                <h3>Seleziona utenti da aggiungere al gruppo</h3>
+                <h4>Sono disponibili solo gli utenti dispositivi</h4>
+
+                <form [formGroup]="groupForm">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Filtra</mat-label>
+                    <input matInput formControlName="filterUsers">
+                  </mat-form-field>
+                
+                  <div formArrayName="users">
+            
+                      <div *ngFor="let user of newUsers" class="users">
+                          <p><mat-checkbox></mat-checkbox></p>
+                        
+                          {{user.fullName}}
+                      </div>
+                  </div>
+                </form>
+
               </div>
-          </form>
-
-          
-        </div>
-        <div class="newUsers">
-          <h3>Seleziona utenti da aggiungere al gruppo</h3>
-          <h4>Sono disponibili solo gli utenti dispositivi</h4>
-
-          <form [formGroup]="groupForm">
-            <mat-form-field class="example-full-width">
-              <mat-label>Filtra</mat-label>
-              <input matInput>
-            </mat-form-field>
-           
-            <div formArrayName="users">
-       
-                <div *ngFor="let user of newUsers" class="users">
-                    <p><mat-checkbox ></mat-checkbox></p>
-                  
-                    {{user.fullName}}
-                </div>
-            </div>
-          </form>
-
-        </div>
       </div>
 
       
@@ -102,7 +99,7 @@
         </div>
     
         <div *ngIf="showGroup;else salva">
-          <button>Modifica</button>
+          <button (click)="changeGroup()">Modifica</button>
         </div>
 
         <ng-template #salva>
@@ -132,7 +129,7 @@
 
 
 
-
+<mat-slide-toggle></mat-slide-toggle>
   
   
   
