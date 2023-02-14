@@ -19,6 +19,7 @@ import { ModalComponent } from '../modal/modal.component';
 
 import { GroupActionsService } from 'src/app/services/group-actions.service';
 import { concat } from 'rxjs';
+import { CurrencyPipe } from '@angular/common';
 
 
 
@@ -48,11 +49,12 @@ export class GroupOverviewComponent implements OnInit {
 
   functionsNew: IFunctionElement[]
 
-  newUsersList: IUser[]
+  usersList: IUser[]
 
   newUsers: any
   users?:IUser[]
   functions:any
+  usersFilter:string
 
 
   newGroup: boolean = false
@@ -71,114 +73,72 @@ export class GroupOverviewComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')
     if(!id) this.newGroup = true
-   let findGroup = id?  this.GroupService.getGroup(id) : this.GroupService.getEmptyGroup()
+   let findGroup = this.GroupService.getGroup(id)
    this.group = findGroup
 
-
-
     this.groupForm = this.fb.group({
-      groupName: this.fb.control,
-      groupMaxValue: new FormControl(),
-      groupMinValue: new FormControl(),
+      groupName: this.fb.control(''),
+      groupMaxValue: this.fb.control(''),
+      groupMinValue: this.fb.control(''),
       functions:this.fb.array([]),
       users:this.fb.array([]),
       filterUsers:this.fb.control('')
-
-
     });
     this.functionsNew = this.functionsService.getFunctionsList()
+    this.usersList = this.userService.getUsersList()
 
     this.patch()
-
-  
 
     if(this.actions.getDiasbleForm()) {
       this.showGroup = true
       this.groupForm.disable()
     }
-
-    
-   
-
-
-    this.newUsers = this.userService.getNewUsers(this.users!) 
-
-    console.log(this.newUsers)
-
-    this.functions = this.group?.functions
-  
-    this.functionsList = this.functionsService.getFunc(this.functions)
-    console.log(this.functionsList)
-  
-
   }
 
   patch() {
     const functionsControl = <FormArray>this.groupForm.get('functions');
     const usersControl = <FormArray>this.groupForm.get('users');
     
-
-
     for(let i=0;i<this.functionsNew.length;i++) {
-
-       let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name ) 
-       console.log(same)
-    
-        if(same) {
-          functionsControl.push(this.patchValues(same.title, same.functionCode!, same.minValue, same.maxValue))
-        }  
-            
-      if(!same) {
-        functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code, '0', '0'))
-      }
-
+      let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name )     
+      if(same) functionsControl.push(this.patchValues(same.title, same.functionCode!, true, same.minValue, same.maxValue))
+      if(!same) functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code,false, '0', '0'))
     }
 
-
-    this.users = this.group?.users
-    console.log(this.users)
-    this.users?.forEach(user=>{
-      usersControl.push(this.patchValuesUsers(user.fullName,user.userId, user.userInitials!))
-    })
-
+    for(let i=0; i<this.usersList.length; i++) {
+      let same = this.group?.users.find(item=> item.userId == this.usersList[i].userId)
+      if(same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, true, this.usersList[i].userInitials!))
+      if(!same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, false, this.usersList[i].userInitials!))
+    }
 
     this.groupForm.get('groupName')?.setValue(this.group?.groupName)
     this.groupForm.get('groupMinValue')?.setValue(this.group?.groupName)
     this.groupForm.get('groupMaxValue')?.setValue(this.group?.maxValue)
-
-
-
   }
 
-  patchValues(title:string,functionCode:string, minValue?:string,maxValue?:string) {
+  patchValues(title:string,functionCode:string,checked:boolean, minValue?:string,maxValue?:string) {
     return this.fb.group({
-   
         title: [title],
         minValue: [minValue],
         maxValue: [maxValue],
         functionCode:[functionCode],
-      
-  
-
+        checked:[checked]
     })
   }
-  patchValuesUsers(fullName:string,userId:string, userInitials:string) {
+  patchValuesUsers(fullName:string,userId:string,checked:boolean, userInitials:string) {
     return this.fb.group({
       fullName: [fullName],
       userId: [userId],
+      checked:[checked],
       userInitials: [userInitials]
-
     })
   }
 
-
-
-
-
   goToMain() {
     this.router.navigate([''])
-
   }
+
+
 
   // createGroup() {
   //   this.nGroup = {
@@ -198,13 +158,13 @@ export class GroupOverviewComponent implements OnInit {
   //   this.inputs.forEach(input => console.log(input.nativeElement));
   // }
 
-  isChecked(id: string): boolean{
-    let flag = false
-    this.group?.functions.forEach(fn => {
-      if(fn.functionCode == id) flag = true      
-    });
-    return flag
-  }
+  // isChecked(id: string): boolean{
+  //   let flag = false
+  //   this.group?.functions.forEach(fn => {
+  //     if(fn.functionCode == id) flag = true      
+  //   });
+  //   return flag
+  // }
 
   changeGroup() {
     this.showGroup = false

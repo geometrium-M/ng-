@@ -12,24 +12,33 @@
     <div class="wrapper-details">
       <h3>Dettagli gruppo di firma</h3>
       <div class="wrapper-group">
-          <form [formGroup]="groupForm" class="details">
-            <div>
-              <mat-form-field>
-                <input matInput formControlName="groupName">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput formControlName="groupMinValue">
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput formControlName="groupMaxValue">
-              </mat-form-field>    
-            </div>
-            <div formArrayName="users" class="users">
-              <div *ngFor="let child of groupForm.get('users')!.value" class="user">
-                  <div>{{child.userInitials}}</div>
+          <form [formGroup]="groupForm" class="details-form">
+            <div class="details">
+              <div>
+                <label for="groupName">Nome Gruppo</label>
+                <input id="groupName" formControlName="groupName">
               </div>
-          </div>
+               
+              <div>
+                <label for="groupMinValue">Soglia minima servizi</label>
+                <input id="groupMinValue" formControlName="groupMinValue">
+              </div>
+         
+              <div>
+                <label for="groupMaxValue">Soglia massima servizi</label>
+                <input id="groupMaxValue" formControlName="groupMaxValue">
+              </div>
+            </div>
           </form>
+
+          <div class="users">
+            <div *ngFor="let user of group?.users">
+ 
+                <div class="user">{{user.userInitials}}</div>
+  
+              
+            </div>
+        </div>
      
 
       
@@ -41,50 +50,53 @@
         <div class="services">
           <h3>Abilita servizi per gruppo di firma</h3>
           <h4>Seleziona i servizi e imposta la relativa soglia</h4>
-    
           <div class="header">
-            <div>Servizio</div>
-            <div>Soglia minima</div>
-            <div>Soglia massima</div>
+            <h4 class="serviceName">Servizio</h4>
+            <h4 class="serviceValue">Soglia minima</h4>
+            <h4 class="serviceValue">Soglia massima</h4>
           </div>
           <form [formGroup]="groupForm"> 
-              <div formArrayName="functions">
+              <div formArrayName="functions" class="service-wrapper">
            
-                  <div *ngFor="let child of groupForm.get('functions')!.value; let i = index">
+                  <div *ngFor="let child of groupForm.get('functions')!.value | sortList; let i = index">
            
                     <div [formGroupName]="i" class="service">
-                      <div>
-                        <mat-slide-toggle formControlName="minValue"></mat-slide-toggle>
+                      <div class="serviceName">
+                        <mat-slide-toggle formControlName="checked"></mat-slide-toggle>
+                      
+                      <label>{{child.title}}</label>
                       </div>
-                  
-                      <!-- <mat-slide-toggle [checked]="isChecked(child.functionCode)"></mat-slide-toggle> -->
-                      <label class="serviceName">{{child.title}}</label>
-                      <div>
-                        <input formControlName="minValue">
-                        <input formControlName="maxValue">
-                      </div>
-               
+                   
+                        <input formControlName="minValue" class="serviceValue" [ngClass]="{'disabled': true}">
+                        <input formControlName="maxValue" class="serviceValue">
+              
+                      
                     </div>
                   </div>
                 </div>
-          </form>
+          </form> 
         </div>
               <div class="newUsers">
                 <h3>Seleziona utenti da aggiungere al gruppo</h3>
                 <h4>Sono disponibili solo gli utenti dispositivi</h4>
 
                 <form [formGroup]="groupForm">
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Filtra</mat-label>
-                    <input matInput formControlName="filterUsers">
-                  </mat-form-field>
+              
+                    
+                    <input formControlName="filterUsers" [(ngModel)]="usersFilter" placeholder="Filtra...">
+          
                 
                   <div formArrayName="users">
             
-                      <div *ngFor="let user of newUsers" class="users">
-                          <p><mat-checkbox></mat-checkbox></p>
+                      <div *ngFor="let user of groupForm.get('users')!.value | filterUsers:usersFilter; let i = index">
+                        <div [formGroupName]='i' class="users">
+                         
+                          <p><mat-checkbox formControlName="checked"></mat-checkbox></p> 
+                          <div class="user">{{user?.userInitials}}</div>
+                          <div class="user-name">{{user?.fullName}}</div>
+                        </div>
+                   
                         
-                          {{user.fullName}}
                       </div>
                   </div>
                 </form>
@@ -111,26 +123,8 @@
     </div>
   
   </div>
-<pre>{{groupForm.value | json}}</pre>
+<!-- <pre>{{groupForm.value | json}}</pre> -->
 
-
-
-
-
-
-
-
- 
-
-
-
-  
-  
-
-
-
-<mat-slide-toggle></mat-slide-toggle>
-  
   
   
 </body>

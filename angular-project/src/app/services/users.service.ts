@@ -11,6 +11,7 @@ export class UsersService {
   constructor() { }
 
   getUsersList() {
+    this.newUsersList.forEach(user=> user.userInitials=user.fullName.split(" ").map((n)=>n[0]).join(""))
     return this.newUsersList
   }
 
@@ -26,5 +27,10 @@ export class UsersService {
       return this.newUsersList
     }    
   }
+
+  // generateInitials() {
+  //   this.newUsersList.forEach(user=> user.userInitials=user.fullName.split(" ").map((n)=>n[0]).join(""))
+  //   return this.newUsersList
+  // }
 
 }

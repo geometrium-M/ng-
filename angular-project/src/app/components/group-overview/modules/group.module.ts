@@ -13,6 +13,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { DisableDirective } from "src/app/directives/disable.directive";
+import { FilterUsersPipe } from "src/app/pipes/filter-users.pipe";
+import { SortListPipe } from "src/app/pipes/sort-list.pipe";
 
 
 
@@ -31,12 +33,13 @@ import { DisableDirective } from "src/app/directives/disable.directive";
         MatSlideToggleModule,
         MatCheckboxModule,
         MatFormFieldModule,
-  
-
-        
-      
     ],
-    declarations: [GroupOverviewComponent, DisableDirective]
+    declarations: [
+        GroupOverviewComponent, 
+        DisableDirective,
+        FilterUsersPipe,
+        SortListPipe
+    ]
 })
 
 export class GroupModule { }

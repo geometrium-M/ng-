@@ -13,25 +13,25 @@ export class FunctionsService {
   constructor() { }
 
 
-  getFunc(functions:Array<IFunction>) {
-    console.log(functionsList)
-    let funcList = JSON.parse(JSON.stringify(this.functionsList))
-    console.log(funcList)
+  // getFunc(functions:Array<IFunction>) {
+  //   console.log(functionsList)
+  //   let funcList = JSON.parse(JSON.stringify(this.functionsList))
+  //   console.log(funcList)
 
-    if(functions) {
-      for (let i=0; i< functions.length; i++) {
-        for(let j=0;j<funcList.length; j++) {
-          if(functions[i].title == funcList[j].function_name) {
-            funcList[j].minValue = functions[i].minValue
-            funcList[j].maxValue = functions[i].maxValue
-          }
-        }
-      }
-      return funcList
-    }
-    else 
-      return this.functionsList
-  }
+  //   if(functions) {
+  //     for (let i=0; i< functions.length; i++) {
+  //       for(let j=0;j<funcList.length; j++) {
+  //         if(functions[i].title == funcList[j].function_name) {
+  //           funcList[j].minValue = functions[i].minValue
+  //           funcList[j].maxValue = functions[i].maxValue
+  //         }
+  //       }
+  //     }
+  //     return funcList
+  //   }
+  //   else 
+  //     return this.functionsList
+  // }
 
   getFunctionsList() {
     return this.functionsList
