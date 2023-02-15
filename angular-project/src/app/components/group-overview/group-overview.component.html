@@ -58,7 +58,7 @@
           <form [formGroup]="groupForm"> 
               <div formArrayName="functions" class="service-wrapper">
            
-                  <div *ngFor="let child of groupForm.get('functions')!.value | sortList; let i = index">
+                  <div *ngFor="let child of groupForm.get('functions')!.value; let i = index">
            
                     <div [formGroupName]="i" class="service">
                       <div class="serviceName">
@@ -66,11 +66,20 @@
                       
                       <label>{{child.title}}</label>
                       </div>
-                   
-                        <input formControlName="minValue" class="serviceValue" [ngClass]="{'disabled': true}">
-                        <input formControlName="maxValue" class="serviceValue">
-              
-                      
+                      <div class="currency-wrapper">
+                        <div>
+                          <input id="inpt" formControlName="minValue"  [ngClass]="{'disabled': hide}">
+                          <span class="currency-code">EUR</span>
+                        </div>
+                      </div>
+                  
+                      <div class="currency-wrapper">
+                        <div>
+                          <input id="inpt" formControlName="maxValue" >
+                          <span class="currency-code">EUR</span>
+                        </div>
+             
+                      </div>        
                     </div>
                   </div>
                 </div>
@@ -105,27 +114,31 @@
       </div>
 
       
-      <div class="actions">
-        <div>
-          <button (click)="goToMain()" ng-disabled="!newGroup">Indietro</button>
+      <div class="actions-wrapper">
+        <div class="actions">
+          <div>
+            <button (click)="goToMain()" ng-disabled="!newGroup" class="btn">Indietro</button>
+          </div>
+      
+          <div *ngIf="showGroup;else salva">
+            <button (click)="changeGroup()" class="btn">Modifica</button>
+          </div>
+  
+          <ng-template #salva>
+            <button class="btn">Salva</button>
+          </ng-template>
         </div>
-    
-        <div *ngIf="showGroup;else salva">
-          <button (click)="changeGroup()">Modifica</button>
-        </div>
-
-        <ng-template #salva>
-          <button>Salva</button>
-        </ng-template>
+        
       </div>
 
       
     </div>
   
   </div>
-<!-- <pre>{{groupForm.value | json}}</pre> -->
+<pre>{{groupForm.value | json}}</pre>
 
   
   
 </body>
 </html>
+

@@ -1,7 +1,12 @@
+html,body{
+  min-height: 100vh;
+ }
+
 body {
   padding: 0;
   margin: 0;
   background-color: rgb(235, 240, 243);
+  font-size: 24px;
 }
 p{
   margin: 0;
@@ -9,18 +14,19 @@ p{
 .header{
   display: flex;
   justify-content: space-between;
-  margin-bottom: 40px;
+
 }
 .group-name {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
 }
 .wrapper {
-  padding-top: 150px;
+  padding:0 50px;
+  position: relative;
 }
 .wrapper-group {
-  padding: 30px;
-  margin: 0 40px 40px 40px;
+  padding: 35px;
+  margin-top: 40px;
   border-radius: 10px;
   background-color: rgb(253, 249, 249);
 }
@@ -29,13 +35,20 @@ p{
   display: flex;
 }
 
+.values-wrapper {
+  margin-left: 15px;
+}
+
 .functions {
   display: flex;
   align-items: center;
-  width: 70%;
+  width: 90%;
+  margin-top: 20px;
+ 
 }
 .function {
-  padding-right: 50px;
+  width: 15%;
+
 }
 
 .function img {
@@ -44,6 +57,9 @@ p{
 .user {
   background-color: rgb(235, 230, 230);
   color: rgb(150, 146, 146);
+}
+.users {
+   margin: 0;
 }
 div img {
   border: 1px solid black;
@@ -69,8 +85,48 @@ img {
 }
 
 .warning {
- border: 1px solid rgb(233, 159, 23);
+ border: 3px solid rgb(233, 159, 23);
 }
+
+.btn {
+  position: relative;
+  font-size: 20px;
+  width: 10%;
+  left: 90%;
+  padding: 15px 10px;
+  margin: 40px 0;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(39, 82, 146);
+  color: white;
+}
+
+.icon {
+  margin-top: 5px;
+}
+
+.filter {
+  padding-left: 50px;
+
+}
+.filter input {
+  width: 20%;
+  padding: 10px;
+  border: none;
+  border-bottom: 3px solid rgb(177, 172, 172);
+  outline: none;
+}
+
+.nav-wrapper {
+  width: 100%;
+  padding: 50px;
+}
+.nav {
+  width: 100%;
+  border-bottom: 1px solid rgb(177, 172, 172);
+
+}
+ 
 
 
 

@@ -1,4 +1,37 @@
-.actions {
+/* .actions {
   display: flex;
   flex-direction: column;
+} */
+
+.menu{
+  position: relative;
+}
+.menu:hover .menu_content{
+  display: block;
+}
+.menu_content{
+  display: none;
+  position: absolute;
+  z-index: 10;
+  left: 10px;
+  top: 10px;
+  /* border: 1px solid black; */
+  /* box-shadow: ; */
+  box-shadow: 0px 10px 21px 0px rgba(135,133,135,0.7);
+  background: #fff;
+  list-style: none;
+  padding: 15px;
+  min-width: 300px;
+  border-radius: 10px;
+}
+.menu_title{
+  border-bottom: 1px solid black;
+}
+.menu_item, .menu_title{
+  padding: 5px 10px;
+  cursor: pointer;
+  /* padding: 10px; */
+}
+.menu_item:hover{
+  background-color: rgb(208, 252, 252);
 }

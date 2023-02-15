@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
-import { groupList } from '../data/groupList';
+import { groupList as qwe } from '../data/groupList';
 import { functionsList } from '../data/functions';
 import { IGroup } from '../components/model/group';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+import {HttpClientModule} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupService {
 
-  groupList:IGroup[] = groupList
+  groupList:IGroup[] = qwe
   newGroup:IGroup
+
+  
 
   constructor() { }
 
-  getGropuList() {
-    return this.groupList
+ getGropuList() {
+  return this.groupList
+ 
+
+    
+    
   }
 
   getGroup(id:any) {
@@ -35,10 +43,13 @@ export class GroupService {
     this.groupList.push(group)
   }
 
-  deteleGroup(id:number) {
+  deleteGroup(id:number) {
+
+    console.log(id)
     let el = this.groupList.find(group=> group.id == id)
     if(el) {
-      this.groupList.splice(groupList.indexOf(el),1)
+      this.groupList.splice(qwe.indexOf(el),1)
     }
+    console.log(this.groupList)
   }
 }

@@ -1,4 +1,5 @@
 import { Component,Output,EventEmitter,Input } from '@angular/core';
+import { GroupService } from 'src/app/services/group.service';
 
 @Component({
   selector: 'app-modal',
@@ -6,19 +7,15 @@ import { Component,Output,EventEmitter,Input } from '@angular/core';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent {
-  @Output() delete = new EventEmitter()
-  @Output() modify = new EventEmitter()
-
-  @Input() showM:boolean
+  constructor(private groupService:GroupService){}
 
 
-  deleteGroupElement() {
-    this.delete.emit()
-  }
+  @Input() id: number
+  
 
-  modifyGroupElement(e:Event) {
-    e.stopPropagation()
-    this.modify.emit()
+  deleteGroup(id:number) {
+    console.log('delete',id)
+    this.groupService.deleteGroup(id)
   }
 
 }

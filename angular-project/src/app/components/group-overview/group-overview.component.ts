@@ -20,6 +20,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { GroupActionsService } from 'src/app/services/group-actions.service';
 import { concat } from 'rxjs';
 import { CurrencyPipe } from '@angular/common';
+import { IFunction } from '../model/function';
 
 
 
@@ -64,6 +65,7 @@ export class GroupOverviewComponent implements OnInit {
   groupForm:FormGroup
   detailsForm:FormGroup
   usersForm:FormGroup
+  hide:boolean
 
   isGroupFunction:boolean= false
 
@@ -92,7 +94,11 @@ export class GroupOverviewComponent implements OnInit {
     if(this.actions.getDiasbleForm()) {
       this.showGroup = true
       this.groupForm.disable()
-    }
+    } 
+
+
+
+   
   }
 
   patch() {
@@ -101,8 +107,8 @@ export class GroupOverviewComponent implements OnInit {
     
     for(let i=0;i<this.functionsNew.length;i++) {
       let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name )     
-      if(same) functionsControl.push(this.patchValues(same.title, same.functionCode!, true, same.minValue, same.maxValue))
-      if(!same) functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code,false, '0', '0'))
+      if(same) functionsControl.push(this.patchValues(same.title, same.functionCode!, true,'EUR', same.minValue, same.maxValue))
+      if(!same) functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code,false,"EUR", '0', '0'))
     }
 
     for(let i=0; i<this.usersList.length; i++) {
@@ -112,16 +118,17 @@ export class GroupOverviewComponent implements OnInit {
     }
 
     this.groupForm.get('groupName')?.setValue(this.group?.groupName)
-    this.groupForm.get('groupMinValue')?.setValue(this.group?.groupName)
+    this.groupForm.get('groupMinValue')?.setValue(this.group?.minValue)
     this.groupForm.get('groupMaxValue')?.setValue(this.group?.maxValue)
   }
 
-  patchValues(title:string,functionCode:string,checked:boolean, minValue?:string,maxValue?:string) {
+  patchValues(title:string,functionCode:string,checked:boolean,currency:string, minValue?:string,maxValue?:string) {
     return this.fb.group({
         title: [title],
+        functionCode:[functionCode],
+        currency:[currency],
         minValue: [minValue],
         maxValue: [maxValue],
-        functionCode:[functionCode],
         checked:[checked]
     })
   }
@@ -171,5 +178,7 @@ export class GroupOverviewComponent implements OnInit {
     this.groupForm.enable()
    
   }
+
+ 
 
 }

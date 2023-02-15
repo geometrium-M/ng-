@@ -7,18 +7,21 @@
   <title>Document</title>
 </head>
 <body>
+  <div class="nav-wrapper">
+    <div class="nav">
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla sint vero porro.</p>
+    </div>
+  </div>
+  <div class="filter">
+    <input type="text" placeholder="Filtra..."  [(ngModel)]="groupsFilter">
+  </div>
 
   <div class="wrapper">
     <div >
-      <div *ngFor="let group of groupList" class="wrapper-group" (mouseleave)="showModal = !showModal" (click)="openGroup(group.id)"(mouseenter)="show($event)" [ngClass]="{'warning':group.warning}">
-      
-<!-- 
+      <div *ngFor="let group of GroupService.groupList | filterGroups:groupsFilter" class="wrapper-group"  (click)="openGroup(group.id)" [ngClass]="{'warning':group.warning}">
         <app-modal 
-          class="modal-wrapper"
-          (modify)="modifGroup(group.id,group.groupName)"
-          (delete)="deleteGroup(group.id)"
-
-        ></app-modal> -->
+          [id]="group.id" (click)="$event.stopPropagation()"
+        ></app-modal>
   
         <div class="header">
           <div>
@@ -40,29 +43,31 @@
         <div class="functions">
           <div *ngFor="let function of group.functions" class="function">
             <div>
-              <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="">
+              <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="" class="icon">
             </div>
-       
             <div class="values-wrapper">
               <p>{{function.title}}</p>
               <div class="values">
-                <div>{{(function.minValue | currency:'EUR':true:'1.0-0')}}</div>
+                <div>{{(function.minValue | currency:'EUR':'symbol':'1.0-0')}}</div>
                 <span>-</span>
-                <div>{{function.maxValue  | currency:'EUR':true:'1.0-0'}}</div>
+                <div>{{function.maxValue  | currency:'EUR':'symbol':'1.0-0'}}</div>
               </div>
             </div>
-           
           </div>
         </div>
-  
-       
-  
-        </div>
+        <button (click)="GroupService.deleteGroup(group.id)">qwe</button>
+      </div>
     </div>
+  
+        <button (click)="createNewGroup()" class="btn">Nuovo Gruppo <span>+</span> </button>
    
       
+
+    
    
   </div>
-  <button (click)="createNewGroup()">Nuovo Gruppo</button>
+
+  
+
 </body>
 </html>

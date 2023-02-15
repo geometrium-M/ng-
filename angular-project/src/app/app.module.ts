@@ -1,7 +1,8 @@
-import { NgModule,LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -12,19 +13,19 @@ import { ModalComponent } from './components/modal/modal.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import {AppRoutingModule} from './app.routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
 
-import { registerLocaleData } from '@angular/common';
-import localeDe from '@angular/common/locales/de';
-import localeDeExtra from '@angular/common/locales/extra/de';
+import { HttpClientModule } from '@angular/common/http';
 
-registerLocaleData(localeDe, 'de-DE', localeDeExtra);
+
 
 @NgModule({
   declarations: [
     AppComponent,
     GroupListComponent,
     ModalComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    FilterGroupsPipe
   ],
   imports: [
     BrowserModule,
@@ -32,13 +33,11 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
     CommonModule,
     RouterModule,
     AppRoutingModule,
-    BrowserAnimationsModule
-  ],
+    BrowserAnimationsModule,
+    FormsModule,
+  HttpClientModule  ],
   providers: [
-    {
-      provide: LOCALE_ID,
-      useValue: 'de-DE'
-    }
+
   ],
   bootstrap: [AppComponent]
 })

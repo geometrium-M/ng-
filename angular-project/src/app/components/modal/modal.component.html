@@ -1,7 +1,18 @@
-<div class="wrapper" >
+<!-- <div class="wrapper" >
   <div>Altro</div>
   <div class="actions">
     <button (click)="modifyGroupElement($event)">Modifica</button>
     <button (click)="deleteGroupElement()">Elimina</button>
   </div>
+</div> -->
+
+<div class="menu">
+  <div class="menu_hidear">
+    ...
+  </div>
+  <ul class="menu_content">
+    <li class="menu_title">Altro</li>
+    <li class="menu_item" [routerLink]="['/group/'+id]">Modifica</li>
+    <li class="menu_item"(click)="deleteGroup(id)">Elimina</li>
+  </ul>
 </div>

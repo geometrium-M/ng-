@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit,Output,EventEmitter,OnChanges } from '@angular/core';
 
 import { IGroup } from '../model/group';
 
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 import { GroupActionsService } from 'src/app/services/group-actions.service';
 import { group } from '@angular/animations';
+import { Observable } from 'rxjs';
 
 
 
@@ -18,17 +19,21 @@ import { group } from '@angular/animations';
 export class GroupListComponent implements OnInit{
 
   constructor( 
-    private GroupService: GroupService, 
+    public GroupService: GroupService, 
     private router:Router,
     private actions:GroupActionsService
   ){
-   this.groupList =  this.GroupService.getGropuList()
+   
   }
   
   groupList:IGroup[]
   showModal: boolean = false
   modalLeft: number
   modalTop: number
+
+  groupsFilter:string = ''
+
+
 
 
 
@@ -37,12 +42,19 @@ export class GroupListComponent implements OnInit{
 
     // this.modalLeft = event.clientY
     // this.modalTop = event.clientX
+    console.log(e.target)
     this.showModal = true
 
   }
 
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.groupList = this.GroupService.getGropuList()
+    
+
+  }
+  
+
 
   modifGroup(id:number, name:string) {
     console.log(name)
@@ -61,8 +73,8 @@ export class GroupListComponent implements OnInit{
     this.actions.disableForm(false)
   }
 
-  deleteGroup(id:number) {
-    this.GroupService.deteleGroup(id)
-  }
+  // deleteGroup(id:number) {
+  //   this.GroupService.deteleGroup(id)
+  // }
 
 }

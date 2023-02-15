@@ -10,30 +10,18 @@ export class FunctionsService {
 
   functionsList:IFunctionElement[] = functionsList
 
-  constructor() { }
+  constructor() {
+    this.functionsList.sort((a,b)=>{
+      if(a.function_name < b.function_name) return -1
+      else return 1
+    })    
+  }
 
 
-  // getFunc(functions:Array<IFunction>) {
-  //   console.log(functionsList)
-  //   let funcList = JSON.parse(JSON.stringify(this.functionsList))
-  //   console.log(funcList)
 
-  //   if(functions) {
-  //     for (let i=0; i< functions.length; i++) {
-  //       for(let j=0;j<funcList.length; j++) {
-  //         if(functions[i].title == funcList[j].function_name) {
-  //           funcList[j].minValue = functions[i].minValue
-  //           funcList[j].maxValue = functions[i].maxValue
-  //         }
-  //       }
-  //     }
-  //     return funcList
-  //   }
-  //   else 
-  //     return this.functionsList
-  // }
 
   getFunctionsList() {
+
     return this.functionsList
   }
 
