@@ -33,58 +33,87 @@
 
           <div class="users">
             <div *ngFor="let user of group?.users">
- 
                 <div class="user">{{user.userInitials}}</div>
-  
-              
             </div>
         </div>
-     
-
-      
       </div>
     </div>
 
     <div>
-      <div class="services-wrapper">
+      <div class="services-wrapper" >
+
+        
         <div class="services">
           <h3>Abilita servizi per gruppo di firma</h3>
           <h4>Seleziona i servizi e imposta la relativa soglia</h4>
-          <div class="header">
-            <h4 class="serviceName">Servizio</h4>
-            <h4 class="serviceValue">Soglia minima</h4>
-            <h4 class="serviceValue">Soglia massima</h4>
-          </div>
           <form [formGroup]="groupForm"> 
-              <div formArrayName="functions" class="service-wrapper">
+
+          <table>
+            <tr>
+              <th>Servizio</th>
+              <th>Soglia minima</th>
+              <th>Soglia massima</th>
+            </tr>
+          
+      
+              <tbody >
+                <ng-container formArrayName="functions">
+
            
-                  <div *ngFor="let child of groupForm.get('functions')!.value; let i = index">
+                  <ng-container *ngFor="let child of groupForm.get('functions')!.value; let i = index">
+
+                    <tr [formGroupName]="i">
+                     
+                        <td>
+                          <div class="service-title">
+                            <label class="switch">
+                              <input type="checkbox" formControlName="checked" #ch  >
+                              <span class="slider" [ngClass]="{'enabledToggle': ch.checked, 'disabledToggle':ch.checked && showGroup}"
+
+                              ></span>
+                            </label>
+  
+                            <label class="title">{{child.title}}</label>
+                          </div>
+                
+                        </td>
+
+                        <td class="service-value">
+                          <div>
+                            <img src="../../../assets/images/warning.png" alt="" [ngClass]="{'warning-img':showGroup, 'not': !showGroup}">
+                            <input  id="inpt" formControlName="minValue"  
+                            [ngClass]="{
+                              'warning': ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
+                              'disabledInput':showGroup
+                          }" >
+                            <span class="service-currency">EUR</span>
+                          </div> 
+                    
+                        </td>
+                        <td class="service-value">
+                          <div>
+                            <input id="inpt" formControlName="maxValue"
+                            [ngClass]="{
+                              'warning': ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
+                              'disabledInput':showGroup
+                            }">
+                          <span class="service-currency">EUR</span>
+                          </div>
+                          
+                        </td>       
+                      </tr>
            
-                    <div [formGroupName]="i" class="service">
-                      <div class="serviceName">
-                        <mat-slide-toggle formControlName="checked"></mat-slide-toggle>
-                      
-                      <label>{{child.title}}</label>
-                      </div>
-                      <div class="currency-wrapper">
-                        <div>
-                          <input id="inpt" formControlName="minValue"  [ngClass]="{'disabled': hide}">
-                          <span class="currency-code">EUR</span>
-                        </div>
-                      </div>
-                  
-                      <div class="currency-wrapper">
-                        <div>
-                          <input id="inpt" formControlName="maxValue" >
-                          <span class="currency-code">EUR</span>
-                        </div>
-             
-                      </div>        
-                    </div>
-                  </div>
-                </div>
-          </form> 
+                    
+
+                  </ng-container  >
+                </ng-container>
+              </tbody>
+         
+          </table>
+        </form>
+        
         </div>
+      
               <div class="newUsers">
                 <h3>Seleziona utenti da aggiungere al gruppo</h3>
                 <h4>Sono disponibili solo gli utenti dispositivi</h4>
@@ -101,6 +130,7 @@
                         <div [formGroupName]='i' class="users">
                          
                           <p><mat-checkbox formControlName="checked"></mat-checkbox></p> 
+                     
                           <div class="user">{{user?.userInitials}}</div>
                           <div class="user-name">{{user?.fullName}}</div>
                         </div>
@@ -136,6 +166,7 @@
   
   </div>
 <pre>{{groupForm.value | json}}</pre>
+
 
   
   

@@ -1,4 +1,4 @@
-import { Component,OnInit,Input,ViewChildren,ElementRef, QueryList, AfterViewInit } from '@angular/core';
+import { Component,OnInit,Input,ViewChildren,ElementRef, QueryList, AfterViewInit,OnChanges } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 
 import {FormGroup, FormControl,FormBuilder, FormArray } from '@angular/forms'
@@ -21,6 +21,7 @@ import { GroupActionsService } from 'src/app/services/group-actions.service';
 import { concat } from 'rxjs';
 import { CurrencyPipe } from '@angular/common';
 import { IFunction } from '../model/function';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 
 
@@ -69,6 +70,8 @@ export class GroupOverviewComponent implements OnInit {
 
   isGroupFunction:boolean= false
 
+  isChecked:boolean = true
+
 
 
 
@@ -97,17 +100,76 @@ export class GroupOverviewComponent implements OnInit {
     } 
 
 
+  //   let el = this.groupForm.get('functions') as FormArray
+  //   let item = this.groupForm.get('groupMinValue')
+  //   console.log(item?.value,el)
+  //   el.value.forEach((value:any)=>console.log(value.minValue))
+
+
+
+  //   let itemMax = this.groupForm.get('groupMaxValue')
+
+  // el.controls.forEach(control=>{ 
+  //   console.log(control.get('minValue')?.value)
+
+  //   if(Number(control.get('minValue')?.value) > 0 && Number(control.get('minValue')?.value) != Number(itemMax?.value)) {
+  //     control.get('Wm')?.setValue(true)
+  //   }
+  //   else {
+  //     control.get('Wm')?.setValue(false)
+      
+  //   }
+
+  // })
+
+
+    
+
+
 
    
   }
 
+ 
+  
+ 
+
   patch() {
+    this.groupForm.get('groupName')?.setValue(this.group?.groupName)
+    this.groupForm.get('groupMinValue')?.setValue(this.group?.minValue)
+    this.groupForm.get('groupMaxValue')?.setValue(this.group?.maxValue)
+
     const functionsControl = <FormArray>this.groupForm.get('functions');
+  
     const usersControl = <FormArray>this.groupForm.get('users');
+
+    let itemMin = this.groupForm.get('groupMinValue')
+    let itemMax = this.groupForm.get('groupMaxValue')
     
     for(let i=0;i<this.functionsNew.length;i++) {
-      let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name )     
-      if(same) functionsControl.push(this.patchValues(same.title, same.functionCode!, true,'EUR', same.minValue, same.maxValue))
+      let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name )  
+      let WM
+      let Wm
+      if(same) {
+        // if(Number(same.minValue) !== Number(itemMin?.value) ) {
+        //   Wm = true
+        // }
+        // else {
+        //   Wm = false
+        // }
+
+
+        // if(Number(same.maxValue) !== Number(itemMax?.value) ) {
+         
+        //   WM = true
+        // }
+     
+        functionsControl.push(this.patchValues(same.title, same.functionCode!, true,'EUR', same.minValue, same.maxValue, Wm, WM))
+      } 
+
+
+
+
       if(!same) functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code,false,"EUR", '0', '0'))
     }
 
@@ -117,19 +179,19 @@ export class GroupOverviewComponent implements OnInit {
       if(!same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, false, this.usersList[i].userInitials!))
     }
 
-    this.groupForm.get('groupName')?.setValue(this.group?.groupName)
-    this.groupForm.get('groupMinValue')?.setValue(this.group?.minValue)
-    this.groupForm.get('groupMaxValue')?.setValue(this.group?.maxValue)
+    
   }
 
-  patchValues(title:string,functionCode:string,checked:boolean,currency:string, minValue?:string,maxValue?:string) {
+  patchValues(title:string,functionCode:string,checked:boolean,currency:string, minValue?:string,maxValue?:string, Wm?:boolean, WM?:boolean) {
     return this.fb.group({
         title: [title],
         functionCode:[functionCode],
         currency:[currency],
         minValue: [minValue],
         maxValue: [maxValue],
-        checked:[checked]
+        checked:[checked],
+        Wm:[Wm],
+        WM:[WM]
     })
   }
   patchValuesUsers(fullName:string,userId:string,checked:boolean, userInitials:string) {
@@ -177,6 +239,31 @@ export class GroupOverviewComponent implements OnInit {
     this.showGroup = false
     this.groupForm.enable()
    
+  }
+  change() {
+
+    console.log('jj')
+
+  }
+
+  get rolesFieldAsFormArray(): any {
+
+    return this.groupForm.get('functions') as FormArray;
+ 
+   
+  }
+
+  role(): any {
+    return this.fb.group({
+      role: this.fb.control('role'),
+    });
+  }
+  addControl(): void {
+    console.log(this.rolesFieldAsFormArray.controls)
+    this.rolesFieldAsFormArray.controls.forEach((f:any)=> {
+      f.addControl(this.role());
+
+    }) 
   }
 
  
