@@ -18,24 +18,30 @@
 
   <div class="wrapper">
     <div >
-      <div *ngFor="let group of GroupService.groupList | filterGroups:groupsFilter" class="wrapper-group"  (click)="openGroup(group.id)" [ngClass]="{'warning':group.warning}">
-        <app-modal 
-          [id]="group.id" (click)="$event.stopPropagation()"
-        ></app-modal>
+      <div *ngFor="let group of GroupService.groupList" class="wrapper-group"  (click)="openGroup(group.id)" [ngClass]="{'warning':group.warning}">
+     
   
-        <div class="header">
+        <div class="header-wrapper">
           <div>
-            <div class="group-name">{{group.groupName}}</div>
-            <div *ngIf="group.hasOwnProperty('warning')">{{group.warning}}</div>
+            <div class="header">
+              <div class="group-name" >{{group.groupName}}</div>
+            <app-modal 
+              [id]="group.id" (click)="$event.stopPropagation()"
+            ></app-modal>
+            </div>
+            
+            <div *ngIf="group.hasOwnProperty('warning')"[ngClass]="{'warn':true}">{{group.warning}}</div>
           </div>
           
           <div class="users">
-            <div *ngFor="let user of group?.users">
- 
+            <div *ngFor="let user of group?.users | slice:0:1">
                 <div class="user">{{user.userInitials}}</div>
-  
-              
             </div>
+            <div *ngIf="group.users.length > 1">
+              <div class="user">+{{group.users.length - 1}}</div>
+          </div>
+
+       
         </div>
 
         </div>
@@ -48,9 +54,9 @@
             <div class="values-wrapper">
               <p>{{function.title}}</p>
               <div class="values">
-                <div>{{(function.minValue | currency:'EUR':'symbol':'1.0-0')}}</div>
+                <div>{{function.minValue}}</div>
                 <span>-</span>
-                <div>{{function.maxValue  | currency:'EUR':'symbol':'1.0-0'}}</div>
+                <div>{{function.maxValue}}</div>
               </div>
             </div>
           </div>

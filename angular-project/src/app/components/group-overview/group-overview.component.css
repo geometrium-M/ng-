@@ -377,11 +377,24 @@ td div {
 .warning {
   border-bottom: 3px solid orange;
 }
+.notWarning {
+  background-color: white;
+  border: none;
+  padding: 0;
+
+}
 
 .disabledInput {
-  background-color: white;
+ visibility: hidden;
+
+}
+.warningDisabled {
+  padding: 0 40px;
+  
+  border: none; 
   color: orange;
-  border: none;
+  background: url('../../../assets/images/warning.png') no-repeat left;
+  background-size: 30px;
 }
 
 .warning-img {

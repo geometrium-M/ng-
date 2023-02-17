@@ -22,6 +22,8 @@ import { concat } from 'rxjs';
 import { CurrencyPipe } from '@angular/common';
 import { IFunction } from '../model/function';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { DecimalPipe } from '@angular/common';
+
 
 
 
@@ -39,7 +41,8 @@ export class GroupOverviewComponent implements OnInit {
     private functionsService: FunctionsService,
     private router:Router,
     private fb:FormBuilder,
-    private actions:GroupActionsService
+    private actions:GroupActionsService,
+    public decimalPipe: DecimalPipe
   ) {}
 
   @ViewChildren('input') inputs: QueryList<any>;
@@ -82,6 +85,7 @@ export class GroupOverviewComponent implements OnInit {
    this.group = findGroup
 
     this.groupForm = this.fb.group({
+
       groupName: this.fb.control(''),
       groupMaxValue: this.fb.control(''),
       groupMinValue: this.fb.control(''),
@@ -99,35 +103,6 @@ export class GroupOverviewComponent implements OnInit {
       this.groupForm.disable()
     } 
 
-
-  //   let el = this.groupForm.get('functions') as FormArray
-  //   let item = this.groupForm.get('groupMinValue')
-  //   console.log(item?.value,el)
-  //   el.value.forEach((value:any)=>console.log(value.minValue))
-
-
-
-  //   let itemMax = this.groupForm.get('groupMaxValue')
-
-  // el.controls.forEach(control=>{ 
-  //   console.log(control.get('minValue')?.value)
-
-  //   if(Number(control.get('minValue')?.value) > 0 && Number(control.get('minValue')?.value) != Number(itemMax?.value)) {
-  //     control.get('Wm')?.setValue(true)
-  //   }
-  //   else {
-  //     control.get('Wm')?.setValue(false)
-      
-  //   }
-
-  // })
-
-
-    
-
-
-
-   
   }
 
  
@@ -148,9 +123,16 @@ export class GroupOverviewComponent implements OnInit {
     
     for(let i=0;i<this.functionsNew.length;i++) {
       let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name )  
-      let WM
-      let Wm
+      let minValue
+      let maxValue
+    
       if(same) {
+        minValue = same.minValue
+        maxValue = same.maxValue
+        // if(same.minValue == 'null') minValue = '0'
+        // else minValue = same.minValue
+        // if(same.maxValue =='null') maxValue = '0'
+        // else maxValue = same.maxValue
         // if(Number(same.minValue) !== Number(itemMin?.value) ) {
         //   Wm = true
         // }
@@ -164,13 +146,13 @@ export class GroupOverviewComponent implements OnInit {
         //   WM = true
         // }
      
-        functionsControl.push(this.patchValues(same.title, same.functionCode!, true,'EUR', same.minValue, same.maxValue, Wm, WM))
+        functionsControl.push(this.patchValues(same.title, same.functionCode!,true, minValue, maxValue))
       } 
 
 
 
 
-      if(!same) functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code,false,"EUR", '0', '0'))
+      if(!same) functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code, null, '0', '0'))
     }
 
     for(let i=0; i<this.usersList.length; i++) {
@@ -182,16 +164,14 @@ export class GroupOverviewComponent implements OnInit {
     
   }
 
-  patchValues(title:string,functionCode:string,checked:boolean,currency:string, minValue?:string,maxValue?:string, Wm?:boolean, WM?:boolean) {
+  patchValues(title:string,functionCode:string,  checked?:boolean | null, minValue?:string | number, maxValue?:string | number) {
     return this.fb.group({
         title: [title],
         functionCode:[functionCode],
-        currency:[currency],
+
         minValue: [minValue],
         maxValue: [maxValue],
-        checked:[checked],
-        Wm:[Wm],
-        WM:[WM]
+        checked:[checked]
     })
   }
   patchValuesUsers(fullName:string,userId:string,checked:boolean, userInitials:string) {
@@ -207,33 +187,6 @@ export class GroupOverviewComponent implements OnInit {
     this.router.navigate([''])
   }
 
-
-
-  // createGroup() {
-  //   this.nGroup = {
-  //     title: this.form.get('groupTitle')?.value,
-  //     minValue:this.form.get('groupMinValue')?.value,
-  //     maxValue:this.form.get('groupMaxValue')?.value,
-  //     id: Date.now()
-  //   }
-
-  //   console.log(this.nGroup)
-  //   console.log(this.inputs)
-
-
-  // }
-
-  // ngAfterViewInit() {
-  //   this.inputs.forEach(input => console.log(input.nativeElement));
-  // }
-
-  // isChecked(id: string): boolean{
-  //   let flag = false
-  //   this.group?.functions.forEach(fn => {
-  //     if(fn.functionCode == id) flag = true      
-  //   });
-  //   return flag
-  // }
 
   changeGroup() {
     this.showGroup = false
@@ -266,6 +219,51 @@ export class GroupOverviewComponent implements OnInit {
     }) 
   }
 
- 
 
+  addGroup() {
+
+   
+
+    let groupFunctions:IFunction[] = []
+    let groupUsers:IUser[] = []
+    let groupId:number = 0
+
+    this.groupForm.value.functions.forEach((func:IFunction)=>{
+      if(func.checked) {
+        delete func.checked
+        groupFunctions.push(func)
+      } 
+    })
+    
+    this.groupForm.value.users.forEach((user:IUser)=>{
+      if(user.checked) {
+        delete user.checked
+        groupUsers.push(user)
+      }
+    })
+
+   
+
+  const generatedGroup:IGroup = {
+    functions: groupFunctions,
+    groupName: this.groupForm.value.groupName,
+    minValue: this.groupForm.value.groupMinValue,
+    maxValue: this.groupForm.value.groupMaxValue,
+    users: groupUsers,
+    id:groupId,
+  }
+
+  if(this.newGroup) {
+    groupId = Date.now()
+    console.log('new')
+    this.GroupService.addGroup(generatedGroup)
+  }
+  if(!this.newGroup) {
+    groupId = this.group?.id!
+    console.log('modify')
+    this.GroupService.modifyGroup(groupId, generatedGroup)
+  }
+
+  this.goToMain()
+}
 }

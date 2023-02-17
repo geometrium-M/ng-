@@ -9,6 +9,9 @@
 .menu:hover .menu_content{
   display: block;
 }
+.menu_hedear {
+ margin-left: 10px;
+}
 .menu_content{
   display: none;
   position: absolute;

@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
 
 import { HttpClientModule } from '@angular/common/http';
+import { DecimalPipe } from '@angular/common';
 
 
 
@@ -37,6 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
   HttpClientModule  ],
   providers: [
+    DecimalPipe
 
   ],
   bootstrap: [AppComponent]

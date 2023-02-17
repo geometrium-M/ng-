@@ -32,6 +32,7 @@ export class GroupListComponent implements OnInit{
   modalTop: number
 
   groupsFilter:string = ''
+  showUsers:boolean = false
 
 
 
@@ -77,4 +78,9 @@ export class GroupListComponent implements OnInit{
   //   this.GroupService.deteleGroup(id)
   // }
 
+  f(e:Event) {
+    e.stopPropagation()
+    this.showUsers = !this.showUsers
+    console.log(this.showUsers)
+  }
 }

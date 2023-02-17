@@ -15,6 +15,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { DisableDirective } from "src/app/directives/disable.directive";
 import { FilterUsersPipe } from "src/app/pipes/filter-users.pipe";
 import { SortListPipe } from "src/app/pipes/sort-list.pipe";
+import { DecimalPipe } from "@angular/common";
 
 
 
@@ -39,6 +40,9 @@ import { SortListPipe } from "src/app/pipes/sort-list.pipe";
         DisableDirective,
         FilterUsersPipe,
         SortListPipe
+    ],
+    providers:[
+        DecimalPipe
     ]
 })
 

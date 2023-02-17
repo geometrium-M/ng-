@@ -5,8 +5,8 @@ export interface IGroup {
   functions: Array<IFunction>
   groupName: string
   id: number
-  minValue: string
-  maxValue: string
+  minValue: string | number
+  maxValue: string | number
   users: Array<IUser>
   warning?: string
 

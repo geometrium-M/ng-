@@ -79,23 +79,25 @@
                         </td>
 
                         <td class="service-value">
-                          <div>
-                            <img src="../../../assets/images/warning.png" alt="" [ngClass]="{'warning-img':showGroup, 'not': !showGroup}">
-                            <input  id="inpt" formControlName="minValue"  
-                            [ngClass]="{
-                              'warning': ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
-                              'disabledInput':showGroup
-                          }" >
+                          <div [ngClass]="{ 'disabledInput':showGroup && !ch.checked}">
+                            <input  id="inpt" formControlName="minValue" [ngModel]="child.minValue"
+                              [ngClass]="{
+                                'warning': ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
+                                'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
+                                'notWarning': showGroup && ch.checked
+                                
+                              }">
                             <span class="service-currency">EUR</span>
                           </div> 
                     
                         </td>
                         <td class="service-value">
-                          <div>
+                          <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
                             <input id="inpt" formControlName="maxValue"
                             [ngClass]="{
                               'warning': ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
-                              'disabledInput':showGroup
+                              'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
+                              'notWarning': showGroup && ch.checked
                             }">
                           <span class="service-currency">EUR</span>
                           </div>
@@ -155,7 +157,7 @@
           </div>
   
           <ng-template #salva>
-            <button class="btn">Salva</button>
+            <button class="btn" (click)="addGroup()">Salva</button>
           </ng-template>
         </div>
         

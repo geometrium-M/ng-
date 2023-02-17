@@ -1,6 +1,7 @@
 export interface IFunction {
   title: string
   functionCode?: string
-  minValue: string
-  maxValue: string
+  checked?:boolean
+  minValue: string | number
+  maxValue: string | number
 }
