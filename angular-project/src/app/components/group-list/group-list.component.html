@@ -9,7 +9,7 @@
 <body>
   <div class="nav-wrapper">
     <div class="nav">
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla sint vero porro.</p>
+      <p>Gruppi di Firma</p>
     </div>
   </div>
   <div class="filter">
@@ -18,7 +18,7 @@
 
   <div class="wrapper">
     <div >
-      <div *ngFor="let group of GroupService.groupList" class="wrapper-group"  (click)="openGroup(group.id)" [ngClass]="{'warning':group.warning}">
+      <div *ngFor="let group of GroupService.groupList | filterGroups:groupsFilter " class="wrapper-group"  (click)="openGroup(group.id)" [ngClass]="{'warning':group.warning}">
      
   
         <div class="header-wrapper">
@@ -54,14 +54,13 @@
             <div class="values-wrapper">
               <p>{{function.title}}</p>
               <div class="values">
-                <div>{{function.minValue}}</div>
+                <div>{{function.minValue | currency:'EUR':'symbol':'0.0-0'}}</div>
                 <span>-</span>
-                <div>{{function.maxValue}}</div>
+                <div>{{function.maxValue | currency:'EUR':'symbol':'0.0-0'}}</div>
               </div>
             </div>
           </div>
         </div>
-        <!-- <button (click)="GroupService.deleteGroup(group.id)">qwe</button> -->
       </div>
     </div>
   

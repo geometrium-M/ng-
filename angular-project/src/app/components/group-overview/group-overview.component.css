@@ -106,21 +106,8 @@ h4 {
 
 .serviceCurrency {
   position: absolute;
-
-
-
 }
 
-.serviceValue {
-
-
-
-}
-
-.inputValue {
-
-
-}
 .newUsers {
   width: 47%;
   padding: 50px 70px;
@@ -174,9 +161,7 @@ h3 {
 }
 .actions {
   display: flex;
-  width: 100%;
-  position: absolute;
-  left: 90%;
+  justify-content: end;
 
 
 }
@@ -200,13 +185,13 @@ fieldset {
   border: none;
 }
 
-.functionRow {
+/* .functionRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
 
-}
+} */
 
 .details{
   display: flex;
@@ -260,6 +245,8 @@ fieldset {
   width: 60px;
   height: 34px;
 }
+
+
 
 .switch input { 
   opacity: 0;
@@ -343,13 +330,18 @@ td div {
   min-height: 20px;
   min-width: 20px;  
 }
-
-.service-title {
-  display: flex;
-  align-items: center;
+.service-title-wrapper {
+  width: auto;
 
 }
 
+.service-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+
+}
 .service-value {
   position: relative;
 }
@@ -359,7 +351,7 @@ td div {
   font-weight: 500;
   color: rgb(100, 97, 97);
   position: absolute;
-  left: 70%;
+  right: 15%;
   top: 30%;
   
 }
@@ -380,7 +372,7 @@ td div {
 .notWarning {
   background-color: white;
   border: none;
-  padding: 0;
+  padding-left: 40px;
 
 }
 
