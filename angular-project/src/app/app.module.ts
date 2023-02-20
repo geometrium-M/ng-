@@ -1,4 +1,4 @@
-import { NgModule} from '@angular/core';
+import { NgModule, LOCALE_ID} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -17,6 +17,12 @@ import { FilterGroupsPipe } from './pipes/filter-groups.pipe';
 
 import { HttpClientModule } from '@angular/common/http';
 import { DecimalPipe } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
+
+registerLocaleData(localeDe, 'de-DE', localeDeExtra);
+
 
 
 
@@ -40,6 +46,7 @@ import { DecimalPipe } from '@angular/common';
   HttpClientModule  ],
   providers: [
     DecimalPipe,
+  
  
 
   ],

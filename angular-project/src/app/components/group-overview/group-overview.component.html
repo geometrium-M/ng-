@@ -73,7 +73,7 @@
 
                         <td class="service-value">
                           <div [ngClass]="{ 'disabledInput':showGroup && !ch.checked}">
-                            <input  id="inpt" formControlName="minValue" [ngModel]="child.minValue"
+                            <input  id="inpt" formControlName="minValue" [ngModel]="child.minValue | numberPipe"
                               [ngClass]="{
                                 'warning': ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
                                 'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
@@ -86,7 +86,7 @@
                         </td>
                         <td class="service-value">
                           <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
-                            <input id="inpt" formControlName="maxValue"
+                            <input id="inpt" formControlName="maxValue" [ngModel]="child.maxValue | numberPipe"
                             [ngClass]="{
                               'warning': ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
                               'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),

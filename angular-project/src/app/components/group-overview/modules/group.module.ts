@@ -16,6 +16,7 @@ import { DisableDirective } from "src/app/directives/disable.directive";
 import { FilterUsersPipe } from "src/app/pipes/filter-users.pipe";
 import { SortListPipe } from "src/app/pipes/sort-list.pipe";
 import { DecimalPipe } from "@angular/common";
+import { NumberPipe } from "src/app/pipes/number.pipe";
 
 
 
@@ -39,7 +40,8 @@ import { DecimalPipe } from "@angular/common";
         GroupOverviewComponent, 
         DisableDirective,
         FilterUsersPipe,
-        SortListPipe
+        SortListPipe,
+        NumberPipe
     ],
     providers:[
         DecimalPipe
