@@ -47,7 +47,7 @@
         </div>
   
         <div class="functions">
-          <div *ngFor="let function of group.functions" class="function">
+          <div *ngFor="let function of group.functions | slice:0:4" class="function">
             <div>
               <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="" class="icon">
             </div>
@@ -59,6 +59,16 @@
                 <div>{{function.maxValue | currency:'EUR':'symbol':'0.0-0'}}</div>
               </div>
             </div>
+          </div>
+
+          <div *ngIf="group.functions.length > 4" class="function">
+            
+              <div>
+                <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="" class="icon">
+              </div>
+             <div>+{{group.functions.length - 1}} servizi</div>
+
+        
           </div>
         </div>
       </div>

@@ -81,6 +81,7 @@ img {
 
 .function {
   display: flex;
+  align-items: center;
 }
 
 .modal-wrapper {
@@ -144,7 +145,8 @@ img {
 .values span {
   padding: 0 5px;
 }
- 
+
+
 
 
 
