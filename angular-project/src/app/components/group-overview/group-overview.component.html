@@ -7,46 +7,34 @@
       <div class="wrapper-group">
           <form [formGroup]="groupForm" class="details-form">
             <div class="details">
-              <div>
+              <div class="name-wrapper">
                 <label for="groupName">Nome Gruppo</label>
-                <input id="groupName" formControlName="groupName">
-                <div *ngIf="groupForm.get('groupName')!.invalid">
-            
-                <div *ngIf="groupForm.get('groupName')!.errors?.['required'] && !submitted">
-                  required value
-                </div>
-            
-              
-                  </div>
-                
+                <input id="groupName" formControlName="groupName"
+                [ngClass]="{
+                  'required': groupName!.errors?.['required'] && !submitted
+                }">
               </div>
                
-              <div>
+              <div class="min-wrapper">
                 <label for="groupMinValue">Soglia minima servizi</label>
-                <input id="groupMinValue" formControlName="groupMinValue">
-                <div *ngIf="groupMinValue!.invalid">
-                    <div *ngIf="groupMinValue!.errors?.['required'] && !submitted" class="invalid-wrapper">
-                        required value
-                    </div>
-                    <div *ngIf="groupMinValue!.errors?.['pattern']">
-                        enter number characters
-                    </div>
-              
+                <input id="groupMinValue" formControlName="groupMinValue"
+                [ngClass]="{
+                  'required': groupMinValue!.errors?.['required'] && !submitted || groupMinValue!.errors?.['pattern']
+                }">
+                <div *ngIf="groupMinValue!.errors?.['pattern']" class="pattern min">
+                  enter number characters
                 </div>
               </div>
          
-              <div>
+              <div class="max-wrapper">
                 <label for="groupMaxValue">Soglia massima servizi</label>
-                <input id="groupMaxValue" formControlName="groupMaxValue">
-                <div *ngIf="groupMaxValue!.invalid">
-                  <div *ngIf="groupMaxValue!.errors?.['required'] && !submitted" class="invalid-wrapper">
-                      required value
-                  </div>
-                  <div *ngIf="groupMaxValue!.errors?.['pattern']">
-                      enter number characters
-                  </div>
-            
-              </div>
+                <input id="groupMaxValue" formControlName="groupMaxValue"
+                [ngClass]="{
+                  'required': groupMaxValue!.errors?.['required'] && !submitted || groupMaxValue!.errors?.['pattern']
+                }">
+                <div *ngIf="groupMaxValue!.errors?.['pattern']" class="pattern max">
+                  enter number characters
+                </div>
               </div>
             </div>
           </form>
@@ -70,13 +58,14 @@
 
           <table>
             <tr>
-              <th>Servizio</th>
+              <th [ngStyle]="{'width':'50%'}">Servizio</th>
               <th>Soglia minima</th>
               <th>Soglia massima</th>
             </tr>
           
       
               <tbody >
+           
                 <ng-container formArrayName="functions">
 
            
