@@ -1,7 +1,7 @@
 import { Component,OnInit,Input,ViewChildren,ElementRef, QueryList, AfterViewInit,OnChanges } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 
-import {FormGroup, FormControl,FormBuilder, FormArray } from '@angular/forms'
+import {FormGroup, FormControl,FormBuilder, FormArray, Validators, Form } from '@angular/forms'
 
 
 import { IGroup } from '../model/group';
@@ -75,6 +75,8 @@ export class GroupOverviewComponent implements OnInit {
 
   isChecked:boolean = true
 
+  submitted:boolean = true
+
 
 
 
@@ -86,9 +88,9 @@ export class GroupOverviewComponent implements OnInit {
 
     this.groupForm = this.fb.group({
 
-      groupName: this.fb.control(''),
-      groupMaxValue: this.fb.control(''),
-      groupMinValue: this.fb.control(''),
+      groupName: this.fb.control('', [Validators.required]),
+      groupMaxValue: this.fb.control('', [Validators.required,Validators.pattern("^[0-9]*$")]),
+      groupMinValue: this.fb.control('', [Validators.required,Validators.pattern("^[0-9]*$")]),
       functions:this.fb.array([]),
       users:this.fb.array([]),
       filterUsers:this.fb.control('')
@@ -103,7 +105,26 @@ export class GroupOverviewComponent implements OnInit {
       this.groupForm.disable()
     } 
 
+  
+
   }
+
+  get groupName() {
+    return this.groupForm.get('groupName')
+ }
+
+ get groupMinValue() {
+  return this.groupForm.get('groupMinValue')
+ }
+
+ get groupMaxValue() {
+  return this.groupForm.get('groupMaxValue')
+ }
+
+ get function(): FormArray {
+	return this.groupForm.get('functions') as FormArray;
+} 
+
 
  
   
@@ -118,8 +139,7 @@ export class GroupOverviewComponent implements OnInit {
   
     const usersControl = <FormArray>this.groupForm.get('users');
 
-    let itemMin = this.groupForm.get('groupMinValue')
-    let itemMax = this.groupForm.get('groupMaxValue')
+
     
     for(let i=0;i<this.functionsNew.length;i++) {
       let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name )  
@@ -129,22 +149,7 @@ export class GroupOverviewComponent implements OnInit {
       if(same) {
         minValue = same.minValue
         maxValue = same.maxValue
-        // if(same.minValue == 'null') minValue = '0'
-        // else minValue = same.minValue
-        // if(same.maxValue =='null') maxValue = '0'
-        // else maxValue = same.maxValue
-        // if(Number(same.minValue) !== Number(itemMin?.value) ) {
-        //   Wm = true
-        // }
-        // else {
-        //   Wm = false
-        // }
-
-
-        // if(Number(same.maxValue) !== Number(itemMax?.value) ) {
-         
-        //   WM = true
-        // }
+      
      
         functionsControl.push(this.patchValues(same.title, same.functionCode!,true, minValue, maxValue))
       } 
@@ -161,6 +166,8 @@ export class GroupOverviewComponent implements OnInit {
       if(!same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, false, this.usersList[i].userInitials!))
     }
 
+  
+
     
   }
 
@@ -168,12 +175,14 @@ export class GroupOverviewComponent implements OnInit {
     return this.fb.group({
         title: [title],
         functionCode:[functionCode],
-
-        minValue: [minValue],
-        maxValue: [maxValue],
+        minValue: [minValue, Validators.required],
+        maxValue: [maxValue, Validators.required],
         checked:[checked]
+
+        
     })
   }
+
   patchValuesUsers(fullName:string,userId:string,checked:boolean, userInitials:string) {
     return this.fb.group({
       fullName: [fullName],
@@ -221,6 +230,17 @@ export class GroupOverviewComponent implements OnInit {
 
 
   addGroup() {
+    if(!this.groupForm.valid) {
+      this.submitted = false
+      console.log(this.groupForm.controls, 'ivalid') 
+      return 
+    }
+
+    else {
+      this.submitted = true
+      console.log('submitted')
+    }
+    
 
    
 
@@ -266,4 +286,6 @@ export class GroupOverviewComponent implements OnInit {
 
   this.goToMain()
 }
+
+
 }

@@ -10,16 +10,43 @@
               <div>
                 <label for="groupName">Nome Gruppo</label>
                 <input id="groupName" formControlName="groupName">
+                <div *ngIf="groupForm.get('groupName')!.invalid">
+            
+                <div *ngIf="groupForm.get('groupName')!.errors?.['required'] && !submitted" class="invalid-wrapper">
+                  required value
+                </div>
+            
+              
+                  </div>
+                
               </div>
                
               <div>
                 <label for="groupMinValue">Soglia minima servizi</label>
                 <input id="groupMinValue" formControlName="groupMinValue">
+                <div *ngIf="groupMinValue!.invalid">
+                    <div *ngIf="groupMinValue!.errors?.['required'] && !submitted" class="invalid-wrapper">
+                        required value
+                    </div>
+                    <div *ngIf="groupMinValue!.errors?.['pattern']">
+                        enter number characters
+                    </div>
+              
+                </div>
               </div>
          
               <div>
                 <label for="groupMaxValue">Soglia massima servizi</label>
                 <input id="groupMaxValue" formControlName="groupMaxValue">
+                <div *ngIf="groupMaxValue!.invalid">
+                  <div *ngIf="groupMaxValue!.errors?.['required'] && !submitted" class="invalid-wrapper">
+                      required value
+                  </div>
+                  <div *ngIf="groupMaxValue!.errors?.['pattern']">
+                      enter number characters
+                  </div>
+            
+              </div>
               </div>
             </div>
           </form>
@@ -60,37 +87,40 @@
                         <td class="service-title-wrapper">
                           <div class="service-title">
                             <label class="switch">
-                              <input type="checkbox" formControlName="checked" #ch  >
+                              <input type="checkbox" formControlName="checked" #ch>
                               <span class="slider" [ngClass]="{'enabledToggle': ch.checked, 'disabledToggle':ch.checked && showGroup}"
-
                               ></span>
                             </label>
-  
                             <label class="title">{{child.title}}</label>
                           </div>
                 
                         </td>
 
                         <td class="service-value">
-                          <div [ngClass]="{ 'disabledInput':showGroup && !ch.checked}">
-                            <input  id="inpt" formControlName="minValue" [ngModel]="child.minValue | numberPipe"
+                          <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
+                            <input  id="inpt" formControlName="minValue" [ngModel]="child.minValue"
                               [ngClass]="{
                                 'warning': ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
                                 'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
-                                'notWarning': showGroup && ch.checked
-                                
+                                'notWarning': showGroup && ch.checked,
+                                'notcheckedEnabled': !ch.checked,
+                                'required':ch.checked && function.controls[i].get('minValue')?.errors?.['required'] && !submitted
+                              
                               }">
+                            
                             <span class="service-currency">EUR</span>
                           </div> 
                     
                         </td>
                         <td class="service-value">
                           <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
-                            <input id="inpt" formControlName="maxValue" [ngModel]="child.maxValue | numberPipe"
+                            <input id="inpt" formControlName="maxValue" [ngModel]="child.maxValue"
                             [ngClass]="{
                               'warning': ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
-                              'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
-                              'notWarning': showGroup && ch.checked
+                              'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMaxValue'].value),
+                              'notWarning': showGroup && ch.checked,
+                              'notcheckedEnabled': !ch.checked,
+                              'required':ch.checked && function.controls[i].get('maxValue')?.errors?.['required'] && !submitted
                             }">
                           <span class="service-currency">EUR</span>
                           </div>

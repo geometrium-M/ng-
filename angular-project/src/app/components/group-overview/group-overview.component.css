@@ -75,7 +75,7 @@ h4 {
 }
 
 .service {
-  width: 100%;
+  /* width: 100%; */
   font-size: 20px;
   margin-top: 20px;
   display: flex;
@@ -185,13 +185,6 @@ fieldset {
   border: none;
 }
 
-/* .functionRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-
-} */
 
 .details{
   display: flex;
@@ -278,9 +271,6 @@ fieldset {
   transition: .4s;
 }
 
-/* input:checked + .slider {
-  background-color: #2196F3;
-} */
 
 .enabledToggle {
   background-color: #2196F3;
@@ -301,7 +291,6 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
   border-radius: 34px;
 }
@@ -311,7 +300,10 @@ input:checked + .slider:before {
 } 
 
 table {
+
+ table-layout: fixed;
  width: 100%;
+ height: 100%;
  border-collapse: collapse;
 
  font-size: 20px;
@@ -321,7 +313,7 @@ td {
 
   padding: 0;
   margin: 0px;
-  overflow: auto;
+ 
 }
 td div {
   border: 0;
@@ -336,7 +328,7 @@ td div {
 }
 
 .service-title {
-  width: 100%;
+
   display: flex;
   align-items: center;
 
@@ -361,9 +353,7 @@ td div {
 }
 
 
-.abc {
-  background-color: yellow;
-}
+
 
 
 .warning {
@@ -374,11 +364,17 @@ td div {
   border: none;
   padding-left: 40px;
 
+
 }
 
 .disabledInput {
  visibility: hidden;
 
+}
+
+.notcheckedEnabled {
+  background-color: white;
+  border: none;
 }
 .warningDisabled {
   padding: 0 40px;
@@ -397,6 +393,22 @@ td div {
 
 .not {
   display: none;
+}
+
+.invalid-wrapper {
+  width: auto;
+  border: 1px solid red;
+  background-color: rgb(245, 195, 195);
+}
+
+.invalid {
+
+
+}
+
+.required {
+  border: 1px solid red;
+  background-color: rgb(247, 217, 217);
 }
 
 

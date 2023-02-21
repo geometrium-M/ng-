@@ -8,7 +8,7 @@ export class NumberPipe implements PipeTransform {
   constructor(private decimalPipe:DecimalPipe){}
 
   transform(value:any) {
-    if(value != 0 ) {
+    if(value != 0) {
       return this.decimalPipe.transform(value,'1.2-2')
     }
     return value
