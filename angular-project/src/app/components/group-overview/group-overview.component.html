@@ -12,7 +12,7 @@
                 <input id="groupName" formControlName="groupName">
                 <div *ngIf="groupForm.get('groupName')!.invalid">
             
-                <div *ngIf="groupForm.get('groupName')!.errors?.['required'] && !submitted" class="invalid-wrapper">
+                <div *ngIf="groupForm.get('groupName')!.errors?.['required'] && !submitted">
                   required value
                 </div>
             
@@ -109,6 +109,7 @@
                               }">
                             
                             <span class="service-currency">EUR</span>
+                            <div *ngIf="function.controls[i].get('minValue')?.errors?.['pattern']" class="pattern">enter number characters</div>
                           </div> 
                     
                         </td>
@@ -123,7 +124,10 @@
                               'required':ch.checked && function.controls[i].get('maxValue')?.errors?.['required'] && !submitted
                             }">
                           <span class="service-currency">EUR</span>
+                          <div *ngIf="function.controls[i].get('maxValue')?.errors?.['pattern']" class="pattern">enter number characters</div>
+                          
                           </div>
+                         
                           
                         </td>       
                       </tr>

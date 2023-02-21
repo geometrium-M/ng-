@@ -175,8 +175,8 @@ export class GroupOverviewComponent implements OnInit {
     return this.fb.group({
         title: [title],
         functionCode:[functionCode],
-        minValue: [minValue, Validators.required],
-        maxValue: [maxValue, Validators.required],
+        minValue: [minValue, [Validators.required, Validators.pattern("^[0-9]*$")]],
+        maxValue: [maxValue, [Validators.required, Validators.pattern("^[0-9]*$")]],
         checked:[checked]
 
         
