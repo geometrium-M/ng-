@@ -1,6 +1,3 @@
-
-
-
   <div class="wrapper">
     <div class="wrapper-details">
       <h3>Dettagli gruppo di firma</h3>
@@ -10,35 +7,32 @@
               <div class="name-wrapper">
                 <label for="groupName">Nome Gruppo</label>
                 <input id="groupName" formControlName="groupName"
-                [ngClass]="{
-                  'required': groupName!.errors?.['required'] && !submitted
-                }">
+                  [ngClass]="{
+                    'required': groupName!.errors?.['required'] && !submitted
+                   }">
               </div>
-               
               <div class="min-wrapper">
                 <label for="groupMinValue">Soglia minima servizi</label>
                 <input id="groupMinValue" formControlName="groupMinValue"
-                [ngClass]="{
-                  'required': groupMinValue!.errors?.['required'] && !submitted || groupMinValue!.errors?.['pattern']
-                }">
+                  [ngClass]="{
+                    'required': groupMinValue!.errors?.['required'] && !submitted || groupMinValue!.errors?.['pattern']
+                  }">
                 <div *ngIf="groupMinValue!.errors?.['pattern']" class="pattern min">
                   enter number characters
                 </div>
               </div>
-         
               <div class="max-wrapper">
                 <label for="groupMaxValue">Soglia massima servizi</label>
                 <input id="groupMaxValue" formControlName="groupMaxValue"
-                [ngClass]="{
-                  'required': groupMaxValue!.errors?.['required'] && !submitted || groupMaxValue!.errors?.['pattern']
-                }">
+                  [ngClass]="{
+                    'required': groupMaxValue!.errors?.['required'] && !submitted || groupMaxValue!.errors?.['pattern']
+                  }">
                 <div *ngIf="groupMaxValue!.errors?.['pattern']" class="pattern max">
                   enter number characters
                 </div>
               </div>
             </div>
           </form>
-
           <div class="users">
             <div *ngFor="let user of group?.users">
                 <div class="user">{{user.userInitials}}</div>
@@ -46,151 +40,102 @@
         </div>
       </div>
     </div>
-
-    <div>
+   
       <div class="services-wrapper">
         <div class="services">
-          
           <div class="scroll">
             <h3>Abilita servizi per gruppo di firma</h3>
             <h4>Seleziona i servizi e imposta la relativa soglia</h4>
             <form [formGroup]="groupForm"> 
-  
-            <table>
-              <tr>
-                <th [ngStyle]="{'width':'50%'}">Servizio</th>
-                <th>Soglia minima</th>
-                <th>Soglia massima</th>
-              </tr>
-            
-        
-                <tbody >
-             
-                  <ng-container formArrayName="functions">
-  
-             
-                    <ng-container *ngFor="let child of groupForm.get('functions')!.value; let i = index">
-  
-                      <tr [formGroupName]="i">
-                       
-                          <td class="service-title-wrapper">
-                            <div class="service-title">
-                              <label class="switch">
-                                <input type="checkbox" formControlName="checked" #ch>
-                                <span class="slider" [ngClass]="{'enabledToggle': ch.checked, 'disabledToggle':ch.checked && showGroup}"
-                                ></span>
-                              </label>
-                              <label class="title">{{child.title}}</label>
-                            </div>
-                  
-                          </td>
-  
-                          <td class="service-value">
-                            <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
-                              <input  id="inpt" formControlName="minValue" [ngModel]="child.minValue"
-                                [ngClass]="{
-                                  'warning': ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
-                                  'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
-                                  'notWarning': showGroup && ch.checked,
-                                  'notcheckedEnabled': !ch.checked,
-                                  'required':ch.checked && function.controls[i].get('minValue')?.errors?.['required'] && !submitted
-                                
-                                }">
-                              
-                              <span class="service-currency">EUR</span>
-                              <div *ngIf="function.controls[i].get('minValue')?.errors?.['pattern']" class="pattern">enter number characters</div>
-                            </div> 
-                      
-                          </td>
-                          <td class="service-value">
-                            <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
-                              <input id="inpt" formControlName="maxValue" [ngModel]="child.maxValue"
-                              [ngClass]="{
-                                'warning': ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
-                                'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMaxValue'].value),
-                                'notWarning': showGroup && ch.checked,
-                                'notcheckedEnabled': !ch.checked,
-                                'required':ch.checked && function.controls[i].get('maxValue')?.errors?.['required'] && !submitted
-                              }">
-                            <span class="service-currency">EUR</span>
-                            <div *ngIf="function.controls[i].get('maxValue')?.errors?.['pattern']" class="pattern">enter number characters</div>
-                            
-                            </div>
-                           
-                            
-                          </td>       
-                        </tr>
-             
-                      
-  
-                    </ng-container  >
-                  </ng-container>
-                </tbody>
-           
-            </table>
-          </form>
-          
+              <table>
+                <tr>
+                  <th [ngStyle]="{'width':'50%'}">Servizio</th>
+                  <th>Soglia minima</th>
+                  <th>Soglia massima</th>
+                </tr>
+                  <tbody>
+                    <ng-container formArrayName="functions">
+                      <ng-container *ngFor="let child of groupForm.get('functions')!.value; let i = index">
+                        <tr [formGroupName]="i">
+                            <td class="service-title-wrapper">
+                              <div class="service-title">
+                                <label class="switch">
+                                  <input type="checkbox" formControlName="checked" #ch>
+                                  <span class="slider" [ngClass]="{'enabledToggle': ch.checked, 'disabledToggle':ch.checked && showGroup}"
+                                  ></span>
+                                </label>
+                                <label class="title">{{child.title}}</label>
+                              </div>
+                            </td>
+                            <td class="service-value">
+                              <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
+                                <input  id="inpt" formControlName="minValue" [ngModel]="child.minValue"
+                                  [ngClass]="{
+                                    'warning': ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
+                                    'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
+                                    'notWarning': showGroup && ch.checked,
+                                    'notcheckedEnabled': !ch.checked,
+                                    'required':ch.checked && function.controls[i].get('minValue')?.errors?.['required'] && !submitted
+                                  }">
+                                <span class="service-currency">EUR</span>
+                                <div *ngIf="function.controls[i].get('minValue')?.errors?.['pattern']" class="pattern">enter number characters</div>
+                              </div> 
+                            </td>
+                            <td class="service-value">
+                              <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
+                                  <input id="inpt" formControlName="maxValue" [ngModel]="child.maxValue"
+                                      [ngClass]="{
+                                      'warning': ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
+                                      'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMaxValue'].value),
+                                      'notWarning': showGroup && ch.checked,
+                                      'notcheckedEnabled': !ch.checked,
+                                      'required':ch.checked && function.controls[i].get('maxValue')?.errors?.['required'] && !submitted
+                                    }">
+                                  <span class="service-currency">EUR</span>
+                                  <div *ngIf="function.controls[i].get('maxValue')?.errors?.['pattern']" class="pattern">enter number characters</div>
+                                </div>
+                            </td>       
+                          </tr>
+                      </ng-container>
+                    </ng-container>
+                  </tbody>
+              </table>
+            </form>
           </div>
         </div>
-
-        
-
-        
-      
-      
-              <div class="newUsers">
-                <div class="scroll">
-                  <h3>Seleziona utenti da aggiungere al gruppo</h3>
-                  <h4>Sono disponibili solo gli utenti dispositivi</h4>
-  
-                  <form [formGroup]="groupForm">
-                
-                      
-                      <input formControlName="filterUsers" [(ngModel)]="usersFilter" placeholder="Filtra..." [ngStyle]="{'width':'50%'}">
-            
-                  
-                    <div formArrayName="users">
-              
-                        <div *ngFor="let user of groupForm.get('users')!.value | filterUsers:usersFilter; let i = index">
-                          <div [formGroupName]='i' class="users">
-                           
-                            <p><mat-checkbox formControlName="checked"></mat-checkbox></p> 
-                       
-                            <div class="user">{{user?.userInitials}}</div>
-                            <div class="user-name">{{user?.fullName}}</div>
-                          </div>
-                     
-                          
-                        </div>
-                    </div>
-                  </form>
+        <div class="newUsers">
+          <div class="scroll">
+            <h3>Seleziona utenti da aggiungere al gruppo</h3>
+            <h4>Sono disponibili solo gli utenti dispositivi</h4>
+            <form [formGroup]="groupForm"> 
+              <input formControlName="filterUsers" [(ngModel)]="usersFilter" placeholder="Filtra..." [ngStyle]="{'width':'50%'}">
+              <div formArrayName="users">
+                <div *ngFor="let user of groupForm.get('users')!.value | filterUsers:usersFilter; let i = index">
+                  <div [formGroupName]='i' class="users">       
+                    <p><mat-checkbox formControlName="checked"></mat-checkbox></p> 
+                    <div class="user">{{user?.userInitials}}</div>
+                    <div class="user-name">{{user?.fullName}}</div>
+                  </div>          
                 </div>
-             
-
               </div>
+            </form>
+          </div>
+        </div>
       </div>
-
-      
       <div class="actions-wrapper">
         <div class="actions">
           <div>
             <button (click)="goToMain()" ng-disabled="!newGroup">Indietro</button>
           </div>
-      
           <div *ngIf="showGroup;else salva">
             <button (click)="changeGroup()">Modifica</button>
           </div>
-  
           <ng-template #salva>
             <button  (click)="addGroup()">Salva</button>
           </ng-template>
         </div>
-        
       </div>
-
-      
-    </div>
-  
+    
   </div>
 
 

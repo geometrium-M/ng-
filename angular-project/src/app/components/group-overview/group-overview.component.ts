@@ -1,4 +1,4 @@
-import { Component,OnInit,Input,ViewChildren,ElementRef, QueryList, AfterViewInit,OnChanges } from '@angular/core';
+import { Component,OnInit,ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 
 import {FormGroup, FormControl,FormBuilder, FormArray, Validators, Form } from '@angular/forms'
@@ -15,13 +15,11 @@ import { FunctionsService } from 'src/app/services/functions.service';
 
 import { UsersService } from 'src/app/services/users.service';
 
-import { ModalComponent } from '../modal/modal.component';
 
 import { GroupActionsService } from 'src/app/services/group-actions.service';
-import { concat } from 'rxjs';
-import { CurrencyPipe } from '@angular/common';
+
 import { IFunction } from '../model/function';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+
 import { DecimalPipe } from '@angular/common';
 
 
