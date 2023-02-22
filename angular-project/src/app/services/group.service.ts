@@ -80,6 +80,7 @@ export class GroupService{
     if(el?.warning) group.warning = el.warning
     
     this.groupList[this.groupList.indexOf(el!)] = group
+    console.log(this.groupList[this.groupList.indexOf(el!)])
   } 
 
   

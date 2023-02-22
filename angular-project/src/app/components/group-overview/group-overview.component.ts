@@ -1,7 +1,6 @@
-import { Component,OnInit,ViewChildren, QueryList } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
-
-import {FormGroup, FormControl,FormBuilder, FormArray, Validators, Form } from '@angular/forms'
+import {FormGroup,FormBuilder, FormArray, Validators } from '@angular/forms'
 
 
 import { IGroup } from '../model/group';
@@ -20,7 +19,7 @@ import { GroupActionsService } from 'src/app/services/group-actions.service';
 
 import { IFunction } from '../model/function';
 
-import { DecimalPipe } from '@angular/common';
+
 
 
 
@@ -39,50 +38,29 @@ export class GroupOverviewComponent implements OnInit {
     private functionsService: FunctionsService,
     private router:Router,
     private fb:FormBuilder,
-    private actions:GroupActionsService,
-    public decimalPipe: DecimalPipe
+    private actions:GroupActionsService
   ) {}
-
-  @ViewChildren('input') inputs: QueryList<any>;
-
 
 
   group?:IGroup;
-  functionsList:IFunctionElement[]
-
   functionsNew: IFunctionElement[]
-
   usersList: IUser[]
-
-  newUsers: any
-  users?:IUser[]
   functions:any
   usersFilter:string
-
-
   newGroup: boolean = false
   showGroup:boolean = false
-  modifGroup:boolean = false
-  nGroup:any
   groupForm:FormGroup
   detailsForm:FormGroup
   usersForm:FormGroup
-  hide:boolean
-
-  isGroupFunction:boolean= false
-
   isChecked:boolean = true
-
   submitted:boolean = true
-
-
 
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')
     if(!id) this.newGroup = true
-   let findGroup = this.GroupService.getGroup(id)
-   this.group = findGroup
+    let findGroup = this.GroupService.getGroup(id)
+    this.group = findGroup
 
     this.groupForm = this.fb.group({
 
@@ -102,31 +80,23 @@ export class GroupOverviewComponent implements OnInit {
       this.showGroup = true
       this.groupForm.disable()
     } 
-
-  
-
   }
 
   get groupName() {
     return this.groupForm.get('groupName')
- }
+  }
 
- get groupMinValue() {
-  return this.groupForm.get('groupMinValue')
- }
+  get groupMinValue() {
+    return this.groupForm.get('groupMinValue')
+  }
 
- get groupMaxValue() {
-  return this.groupForm.get('groupMaxValue')
- }
+  get groupMaxValue() {
+    return this.groupForm.get('groupMaxValue')
+  }
 
- get function(): FormArray {
-	return this.groupForm.get('functions') as FormArray;
-} 
-
-
- 
-  
- 
+  get function(): FormArray {
+	  return this.groupForm.get('functions') as FormArray;
+  } 
 
   patch() {
     this.groupForm.get('groupName')?.setValue(this.group?.groupName)
@@ -134,11 +104,8 @@ export class GroupOverviewComponent implements OnInit {
     this.groupForm.get('groupMaxValue')?.setValue(this.group?.maxValue)
 
     const functionsControl = <FormArray>this.groupForm.get('functions');
-  
     const usersControl = <FormArray>this.groupForm.get('users');
 
-
-    
     for(let i=0;i<this.functionsNew.length;i++) {
       let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name )  
       let minValue
@@ -147,13 +114,8 @@ export class GroupOverviewComponent implements OnInit {
       if(same) {
         minValue = same.minValue
         maxValue = same.maxValue
-      
-     
         functionsControl.push(this.patchValues(same.title, same.functionCode!,true, minValue, maxValue))
       } 
-
-
-
 
       if(!same) functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code, null, '0', '0'))
     }
@@ -163,10 +125,6 @@ export class GroupOverviewComponent implements OnInit {
       if(same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, true, this.usersList[i].userInitials!))
       if(!same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, false, this.usersList[i].userInitials!))
     }
-
-  
-
-    
   }
 
   patchValues(title:string,functionCode:string,  checked?:boolean | null, minValue?:string | number, maxValue?:string | number) {
@@ -176,8 +134,6 @@ export class GroupOverviewComponent implements OnInit {
         minValue: [minValue, [Validators.required, Validators.pattern("^[0-9]*$")]],
         maxValue: [maxValue, [Validators.required, Validators.pattern("^[0-9]*$")]],
         checked:[checked]
-
-        
     })
   }
 
@@ -194,43 +150,14 @@ export class GroupOverviewComponent implements OnInit {
     this.router.navigate([''])
   }
 
-
   changeGroup() {
     this.showGroup = false
     this.groupForm.enable()
-   
   }
-  change() {
-
-    console.log('jj')
-
-  }
-
-  get rolesFieldAsFormArray(): any {
-
-    return this.groupForm.get('functions') as FormArray;
- 
-   
-  }
-
-  role(): any {
-    return this.fb.group({
-      role: this.fb.control('role'),
-    });
-  }
-  addControl(): void {
-    console.log(this.rolesFieldAsFormArray.controls)
-    this.rolesFieldAsFormArray.controls.forEach((f:any)=> {
-      f.addControl(this.role());
-
-    }) 
-  }
-
 
   addGroup() {
     if(!this.groupForm.valid) {
       this.submitted = false
-      console.log(this.groupForm.controls, 'ivalid') 
       return 
     }
 
@@ -239,9 +166,6 @@ export class GroupOverviewComponent implements OnInit {
       console.log('submitted')
     }
     
-
-   
-
     let groupFunctions:IFunction[] = []
     let groupUsers:IUser[] = []
     let groupId:number = 0
@@ -250,40 +174,35 @@ export class GroupOverviewComponent implements OnInit {
       if(func.checked) {
         delete func.checked
         groupFunctions.push(func)
-      } 
-    })
-    
+      }})
+
     this.groupForm.value.users.forEach((user:IUser)=>{
       if(user.checked) {
         delete user.checked
         groupUsers.push(user)
-      }
-    })
+      }})
+    const generatedGroup:IGroup = {
+      functions: groupFunctions,
+      groupName: this.groupForm.value.groupName,
+      minValue: this.groupForm.value.groupMinValue,
+      maxValue: this.groupForm.value.groupMaxValue,
+      users: groupUsers,
+      id:groupId,
+    }
 
-   
+    if(this.newGroup) {
+      generatedGroup.id = Date.now()
 
-  const generatedGroup:IGroup = {
-    functions: groupFunctions,
-    groupName: this.groupForm.value.groupName,
-    minValue: this.groupForm.value.groupMinValue,
-    maxValue: this.groupForm.value.groupMaxValue,
-    users: groupUsers,
-    id:groupId,
+      this.GroupService.addGroup(generatedGroup)
+    }
+    if(!this.newGroup) {
+    generatedGroup.id =  this.group?.id!
+      this.GroupService.modifyGroup(groupId, generatedGroup)
+    }
+
+    this.goToMain()
+
   }
-
-  if(this.newGroup) {
-    groupId = Date.now()
-    console.log('new')
-    this.GroupService.addGroup(generatedGroup)
-  }
-  if(!this.newGroup) {
-    groupId = this.group?.id!
-    console.log('modify')
-    this.GroupService.modifyGroup(groupId, generatedGroup)
-  }
-
-  this.goToMain()
-}
 
 
 }
