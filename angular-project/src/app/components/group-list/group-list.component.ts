@@ -1,14 +1,8 @@
-import { Component, Input, OnInit,Output,EventEmitter,OnChanges } from '@angular/core';
-
+import { Component,OnInit} from '@angular/core';
 import { IGroup } from '../model/group';
-
 import { GroupService } from 'src/app/services/group.service';
 import { Router } from '@angular/router';
-
 import { GroupActionsService } from 'src/app/services/group-actions.service';
-import { group } from '@angular/animations';
-import { Observable } from 'rxjs';
-
 
 
 @Component({
@@ -22,44 +16,16 @@ export class GroupListComponent implements OnInit{
     public GroupService: GroupService, 
     private router:Router,
     private actions:GroupActionsService
-  ){
-   
-  }
+  ){}
   
   groupList:IGroup[]
-  showModal: boolean = false
-  modalLeft: number
-  modalTop: number
-
   groupsFilter:string = ''
-  showUsers:boolean = false
-
-
-
-
-
-  show(e:Event) {
-    e.stopPropagation()
-
-    // this.modalLeft = event.clientY
-    // this.modalTop = event.clientX
-    console.log(e.target)
-    this.showModal = true
-
-  }
-
 
   ngOnInit() {
     this.groupList = this.GroupService.getGropuList()
-    
-
   }
   
-
-
-  modifGroup(id:number, name:string) {
-    console.log(name)
-    
+  modifGroup(id:number, name:string) {    
     this.router.navigate(['/group',id])
     this.actions.disableForm(false)
   }
@@ -72,15 +38,5 @@ export class GroupListComponent implements OnInit{
   createNewGroup() {
     this.router.navigate(['/group'])
     this.actions.disableForm(false)
-  }
-
-  // deleteGroup(id:number) {
-  //   this.GroupService.deteleGroup(id)
-  // }
-
-  f(e:Event) {
-    e.stopPropagation()
-    this.showUsers = !this.showUsers
-    console.log(this.showUsers)
   }
 }

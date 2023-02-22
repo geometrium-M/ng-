@@ -1,13 +1,6 @@
 import { Injectable,OnInit } from '@angular/core';
 import { groupList as groups } from '../data/groupList';
-import { functionsList } from '../data/functions';
 import { IGroup } from '../components/model/group';
-import { BehaviorSubject, Observable } from 'rxjs';
-
-import {HttpClientModule} from '@angular/common/http';
-
-import { DecimalPipe } from '@angular/common';
-import { group } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +10,7 @@ export class GroupService{
   groupList:IGroup[] = groups
   newGroup:IGroup
 
-  constructor(private decimalPipe:DecimalPipe) {
+  constructor() {
     this.groupList.forEach(group=>{
       group.functions.forEach(func=>{
         if(func.minValue == 'null') func.minValue = '0'

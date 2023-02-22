@@ -1,4 +1,3 @@
-
   <div class="nav-wrapper">
     <div class="nav">
       <p>Gruppi di Firma</p>
@@ -7,37 +6,32 @@
   <div class="filter">
     <input type="text" placeholder="Filtra..."  [(ngModel)]="groupsFilter">
   </div>
-
   <div class="wrapper">
     <div >
-      <div *ngFor="let group of GroupService.groupList | filterGroups:groupsFilter " class="wrapper-group"  (click)="openGroup(group.id)" [ngClass]="{'warning':group.warning}">
-     
-  
+      <div *ngFor="let group of GroupService.groupList | filterGroups:groupsFilter" 
+          [ngClass]="{'warning':group.warning,'wrapper-group':true}"
+          (click)="openGroup(group.id)">
+
         <div class="header-wrapper">
           <div>
             <div class="header">
               <div class="group-name" >{{group.groupName}}</div>
-            <app-modal 
-              [id]="group.id" (click)="$event.stopPropagation()"
-            ></app-modal>
+              <app-modal 
+                [id]="group.id" (click)="$event.stopPropagation()"
+              ></app-modal>
             </div>
-            
             <div *ngIf="group.hasOwnProperty('warning')"[ngClass]="{'warn':true}">{{group.warning}}</div>
           </div>
-          
           <div class="users">
             <div *ngFor="let user of group?.users | slice:0:1">
                 <div class="user">{{user.userInitials}}</div>
             </div>
             <div *ngIf="group.users.length > 1">
               <div class="user">+{{group.users.length - 1}}</div>
+            </div>
           </div>
-
-       
         </div>
 
-        </div>
-  
         <div class="functions">
           <div *ngFor="let function of group.functions | slice:0:4" class="function">
             <div>
@@ -52,26 +46,17 @@
               </div>
             </div>
           </div>
-
           <div *ngIf="group.functions.length > 4" class="function">
-            
-              <div>
-                <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="" class="icon">
-              </div>
-             <div>+{{group.functions.length - 1}} servizi</div>
-
-        
+            <div>
+              <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="" class="icon">
+            </div>
+            <div>+{{group.functions.length - 1}} servizi</div>
           </div>
         </div>
+
       </div>
     </div>
-  
-        <button (click)="createNewGroup()" class="btn">Nuovo Gruppo <span>+</span> </button>
-   
-      
-
-    
-   
+    <button (click)="createNewGroup()" class="btn">Nuovo Gruppo <span>+</span> </button>
   </div>
 
   

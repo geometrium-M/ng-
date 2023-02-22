@@ -1,27 +1,14 @@
 import { Component,OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import {FormGroup,FormBuilder, FormArray, Validators } from '@angular/forms'
-
-
 import { IGroup } from '../model/group';
 import { IUser } from '../model/user';
 import { GroupService } from 'src/app/services/group.service';
-
-
 import { IFunctionElement } from '../model/functionElement';
-
 import { FunctionsService } from 'src/app/services/functions.service';
-
 import { UsersService } from 'src/app/services/users.service';
-
-
 import { GroupActionsService } from 'src/app/services/group-actions.service';
-
 import { IFunction } from '../model/function';
-
-
-
-
 
 
 @Component({
@@ -45,24 +32,14 @@ export class GroupOverviewComponent implements OnInit {
   group?:IGroup;
   functionsNew: IFunctionElement[]
   usersList: IUser[]
-  // users?:IUser[]
   functions:any
   usersFilter:string
-
-
   newGroup: boolean = false
   showGroup:boolean = false
-  // modifGroup:boolean = false
-  // nGroup:any
   groupForm:FormGroup
   detailsForm:FormGroup
   usersForm:FormGroup
-  // hide:boolean
-
-  // isGroupFunction:boolean= false
-
   isChecked:boolean = true
-
   submitted:boolean = true
 
 
@@ -201,7 +178,6 @@ export class GroupOverviewComponent implements OnInit {
 
     if(this.newGroup) {
       generatedGroup.id = Date.now()
-
       this.GroupService.addGroup(generatedGroup)
     }
     if(!this.newGroup) {
@@ -210,7 +186,7 @@ export class GroupOverviewComponent implements OnInit {
     }
 
     this.goToMain()
-    console.log(groupId)
+ 
   }
 
 
