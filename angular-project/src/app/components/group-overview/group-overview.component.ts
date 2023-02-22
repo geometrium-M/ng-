@@ -45,14 +45,24 @@ export class GroupOverviewComponent implements OnInit {
   group?:IGroup;
   functionsNew: IFunctionElement[]
   usersList: IUser[]
+  // users?:IUser[]
   functions:any
   usersFilter:string
+
+
   newGroup: boolean = false
   showGroup:boolean = false
+  // modifGroup:boolean = false
+  // nGroup:any
   groupForm:FormGroup
   detailsForm:FormGroup
   usersForm:FormGroup
+  // hide:boolean
+
+  // isGroupFunction:boolean= false
+
   isChecked:boolean = true
+
   submitted:boolean = true
 
 
@@ -163,7 +173,6 @@ export class GroupOverviewComponent implements OnInit {
 
     else {
       this.submitted = true
-      console.log('submitted')
     }
     
     let groupFunctions:IFunction[] = []
@@ -197,11 +206,11 @@ export class GroupOverviewComponent implements OnInit {
     }
     if(!this.newGroup) {
     generatedGroup.id =  this.group?.id!
-      this.GroupService.modifyGroup(groupId, generatedGroup)
+      this.GroupService.modifyGroup(this.group?.id, generatedGroup)
     }
 
     this.goToMain()
-
+    console.log(groupId)
   }
 
 
