@@ -3,8 +3,9 @@
 body {
   margin:0;
   padding: 0;
-  font-size: 24px;
+  font-size: 20px;
   background-color: rgb(227, 237, 241);
+
 }
 
 p{
@@ -28,5 +29,82 @@ p{
   padding: 10px 0;
   margin: 0 10px;
 }
+
+@media(max-width:1600px) {
+  body{
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size:24px;
+  }
+  h4{
+    font-size: 22px;
+  }
+  .user {
+    width: 50px;
+    height: 50px;
+    font-size:18px;
+  }
+    
+}
+@media(max-width:1450px) {
+  body{
+    font-size: 16px;
+
+  }
+  
+  h4 {
+    font-size:20px;
+  }
+  h3 {
+    font-size: 22px;
+  }
+    
+}
+@media(max-width:1250px) {
+  h3 {
+    font-size: 18px;
+  }
+  h4 {
+    font-size: 16px;
+  }
+    
+
+}
+@media(max-width:1200px) {
+  body{
+    font-size: 14px;
+
+  }
+
+}
+@media(max-width:1024px) {
+  .user{
+    width: 45px;
+    height: 45px;
+    font-size:16px;
+
+  }
+  h3 {
+    font-size: 16px;
+  }
+  h4 {
+    font-size: 14px;
+  }
+    
+    
+}
+@media(max-width:900px) {
+  .user{
+    width: 40px;
+    height: 40px;
+    font-size:14px;
+
+  }
+    
+}
+
+
 
 

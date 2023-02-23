@@ -13,7 +13,7 @@ ul {
 }
 
 input {
-  min-height: 60px;
+  height: 60px;
   outline: none;
   width: 90%;
   padding: 0 20px;
@@ -30,17 +30,19 @@ input {
   background-color: white;
   border-radius: 20px;
   margin-bottom: 20px;
-  padding: 25px 70px;
+  padding: 2%;
+  position: relative;
 }
 
 .details{
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  font-size: 20px;
+  /* justify-content: space-between; */
+  /* width: 100%; */
+
 }
 .details-form {
-  width: 50%;
+  min-width: 60%;
+  max-width: 75%;
 }
 
 .wrapper-group {
@@ -57,7 +59,7 @@ input {
 .services,
 .newUsers {
   width: 49%;
-  padding: 50px;
+  padding: 2%;
   padding-right: 20px;
   background-color: white;
   border-radius: 20px;
@@ -186,10 +188,16 @@ table {
 tr div{
   margin: 10px;
 }
+.service-value div {
+  margin: 10px 5px;
+}
 
 td {
   padding: 0;
   margin: 0;
+}
+th:first-child {
+  width: 50%;
 }
 
 .service-title {
@@ -207,7 +215,7 @@ td {
   font-weight: 500;
   color: rgb(100, 97, 97);
   position: absolute;
-  right: 15%;
+  right: 20%;
   top: 30%;
 }
 
@@ -271,6 +279,99 @@ td {
 .pattern.max {
   top: 100%;
 }
+
+
+@media(max-width:1600px) {
+  input {
+    height: 50px;
+   
+  }
+  table{
+    font-size: 18px;
+  }
+
+    
+}
+@media(max-width:1500px) {
+  input {
+    height: 40px;
+   
+  }
+  table,
+  .service-currency {
+    font-size: 16px;
+  }
+    
+}
+@media(max-width:1440px) {
+  table,
+  .service-currency {
+    font-size: 14px;
+  }  
+
+  
+ 
+}
+@media(max-width:1200px) {
+  table,
+  .service-currency {
+    font-size: 14px;
+  }  
+  .services {
+    width: 65%;
+  }
+  .newUsers {
+    width: 33%;
+  }
+  
+.scroll::-webkit-scrollbar {
+  width: 10px;
+}
+ 
+}
+
+@media(max-width:1100px) {
+  th:first-child {
+    width: 40%;
+  }
+}
+@media(max-width:768px) {
+  .services-wrapper {
+ 
+    flex-direction: column;
+    
+ 
+  }
+  .services,
+.newUsers{
+  width: 100%;
+  padding: 4%;
+ 
+}
+.services {
+  margin-bottom: 20px;
+}
+.wrapper-group { 
+ flex-direction: column;
+ align-items: flex-end;
+}
+.details-form {
+  max-width: 100%;
+
+}
+.details {
+
+  justify-content: space-between;
+}
+input {
+  width: 100%;
+}
+.scroll {
+  height: 500px;
+}
+
+
+ }
 
 
 
