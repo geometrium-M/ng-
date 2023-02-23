@@ -86,7 +86,7 @@
                                   <input id="inpt" formControlName="maxValue" [ngModel]="child.maxValue"
                                       [ngClass]="{
                                       'warning': ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
-                                      'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMaxValue'].value),
+                                      'warningDisabled':showGroup && ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
                                       'notWarning': showGroup && ch.checked,
                                       'notcheckedEnabled': !ch.checked,
                                       'required':ch.checked && function.controls[i].get('maxValue')?.errors?.['required'] && !submitted
