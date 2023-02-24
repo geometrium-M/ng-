@@ -23,7 +23,7 @@ input {
 }
 
 .wrapper {
-  padding: 50px;
+  padding: 2%;
 }
 
 .wrapper-details {
@@ -36,8 +36,7 @@ input {
 
 .details{
   display: flex;
-  /* justify-content: space-between; */
-  /* width: 100%; */
+
 
 }
 .details-form {
@@ -90,7 +89,7 @@ input {
   border-radius: 10px;
   color: rgb(39, 82, 146);
   background-color: rgb(227, 237, 241);
-  font-size: 24px;
+
   font-weight: 500;
 }
 
@@ -112,8 +111,9 @@ input {
   position: relative;
   display: inline-block;
   width: 10%;
-  height: 34px;
+  height: 25px;
   margin-right: 5px;
+
 }
 
 .switch input { 
@@ -126,6 +126,7 @@ input {
   position: absolute;
   cursor: pointer;
   width: 100%;
+  
   top: 0;
   left: 0;
   right: 0;
@@ -201,6 +202,7 @@ th:first-child {
 }
 
 .service-title {
+  width: 100%;
   display: flex;
   align-items: center;
 }
@@ -220,8 +222,8 @@ th:first-child {
 }
 
 .title {
-  margin-left: 20px;
-  display: inline-block;
+  margin-left: 2%;
+
 }
 
 
@@ -289,6 +291,9 @@ th:first-child {
   table{
     font-size: 18px;
   }
+  .services {
+    padding-left: 1%;
+  }
 
     
 }
@@ -301,6 +306,9 @@ th:first-child {
   .service-currency {
     font-size: 16px;
   }
+  .switch {
+    height: 20px;
+  }
     
 }
 @media(max-width:1440px) {
@@ -308,6 +316,12 @@ th:first-child {
   .service-currency {
     font-size: 14px;
   }  
+  .services {
+    width: 55%;
+  }
+  .newUsers {
+    width: 43%;
+  }
 
   
  
@@ -319,6 +333,7 @@ th:first-child {
   }  
   .services {
     width: 65%;
+
   }
   .newUsers {
     width: 33%;
@@ -327,13 +342,20 @@ th:first-child {
 .scroll::-webkit-scrollbar {
   width: 10px;
 }
+
  
 }
 
 @media(max-width:1100px) {
-  th:first-child {
-    width: 40%;
+  .services {
+    width: 70%;
+
   }
+  .newUsers {
+    width: 25%;
+  }
+  
+
 }
 @media(max-width:768px) {
   .services-wrapper {
@@ -351,14 +373,23 @@ th:first-child {
 .services {
   margin-bottom: 20px;
 }
+.wrapper-details {
+  padding: 5%;
+}
 .wrapper-group { 
  flex-direction: column;
- align-items: flex-end;
+ /* align-items: flex-end; */
 }
 .details-form {
   max-width: 100%;
-
 }
+.users {
+  align-self: self-end;
+}
+.item {
+  /* margin-right: 10px; */
+}
+
 .details {
 
   justify-content: space-between;
@@ -369,9 +400,42 @@ input {
 .scroll {
   height: 500px;
 }
+tr div {
+  margin:0;
+}
 
 
  }
+ @media(max-width:550px) {
+
+  .details {
+    width: 100%;
+    /* max-height: 120px; */
+    flex-wrap: wrap;
+
+  }
+  .item {
+    height: 50%;
+    width: 45%;
+  
+  }
+  input {
+    padding: 0 10px;
+  }
+
+    
+}
+@media(max-width:400px) {
+
+
+  .item {
+    height: 50%;
+    width: 100%;
+  
+  }
+
+    
+}
 
 
 

@@ -15,7 +15,7 @@
         <div class="header-wrapper">
           <div>
             <div class="header">
-              <div class="group-name" >{{group.groupName}}</div>
+              <h3 class="group-name" >{{group.groupName}}</h3>
               <app-modal 
                 [id]="group.id" (click)="$event.stopPropagation()"
               ></app-modal>
@@ -33,30 +33,33 @@
         </div>
 
         <div class="functions">
-          <div *ngFor="let function of group.functions | slice:0:4" class="function">
+          <div *ngFor="let function of group.functions | slice:0:3" class="function">
             <div>
               <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="" class="icon">
             </div>
             <div class="values-wrapper">
-              <p>{{function.title}}</p>
+              <p class="service-title">{{function.title}}</p>
               <div class="values">
-                <div>{{function.minValue | currency:'EUR':'symbol':'0.0-0'}}</div>
+                <p>{{function.minValue | currency:'EUR':'symbol':'0.0-0'}}</p>
                 <span>-</span>
-                <div>{{function.maxValue | currency:'EUR':'symbol':'0.0-0'}}</div>
+                <p>{{function.maxValue | currency:'EUR':'symbol':'0.0-0'}}</p>
               </div>
             </div>
           </div>
-          <div *ngIf="group.functions.length > 4" class="function">
+          <div *ngIf="group.functions.length > 3" class="function">
             <div>
               <img src="https://www.svgrepo.com/show/91117/money-credit-card.svg" alt="" class="icon">
             </div>
-            <div>+{{group.functions.length - 1}} servizi</div>
+            <p>+{{group.functions.length - 3}} servizi</p>
           </div>
         </div>
 
       </div>
     </div>
-    <button (click)="createNewGroup()" class="btn">Nuovo Gruppo <span>+</span> </button>
+    <div class="btn">
+      <button (click)="createNewGroup()" >Nuovo Gruppo <span>+</span> </button>
+    </div>
+
   </div>
 
   

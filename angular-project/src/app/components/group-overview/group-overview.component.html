@@ -4,14 +4,14 @@
       <div class="wrapper-group">
           <form [formGroup]="groupForm" class="details-form">
             <div class="details">
-              <div class="name-wrapper">
+              <div class="name-wrapper item">
                 <label for="groupName">Nome Gruppo</label>
                 <input id="groupName" formControlName="groupName"
                   [ngClass]="{
                     'required': groupName!.errors?.['required'] && !submitted
                    }">
               </div>
-              <div class="min-wrapper">
+              <div class="min-wrapper item">
                 <label for="groupMinValue">Soglia minima servizi</label>
                 <input id="groupMinValue" formControlName="groupMinValue"
                   [ngClass]="{
@@ -21,7 +21,7 @@
                   enter number characters
                 </div>
               </div>
-              <div class="max-wrapper">
+              <div class="max-wrapper item">
                 <label for="groupMaxValue">Soglia massima servizi</label>
                 <input id="groupMaxValue" formControlName="groupMaxValue"
                   [ngClass]="{
@@ -64,7 +64,7 @@
                                   <span class="slider" [ngClass]="{'enabledToggle': ch.checked, 'disabledToggle':ch.checked && showGroup}"
                                   ></span>
                                 </label>
-                                <label class="title">{{child.title}}</label>
+                                <div class="title">{{child.title}}</div>
                               </div>
                             </td>
                             <td class="service-value">
