@@ -33,15 +33,14 @@ p {
 
 .functions {
   display: flex;
-  /* align-items: center; */
   flex-wrap: wrap;
-  /* width: 90%; */
+  width: 80%;
   margin-top: 20px;
   height: 150px;
   
 }
 .function {
-  width: 15%;
+  min-width: 20%;
   margin-right: 15px;
   height: 50%;
   display: flex;
@@ -68,15 +67,11 @@ p {
 
 .btn {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   
 }
 button {
-  /* position: relative; */
- 
   min-width: 15%;
-  
-  /* right: -85%; */
   padding: 15px 10px;
   margin: 40px 0;
   border: none;
@@ -130,11 +125,6 @@ button {
   .warn {
     font-size: 16px;
   }
-  .function {
-    /* width: 18%; */
-   }
-
-
 
 
 }
@@ -149,10 +139,6 @@ button {
     height: 40px;
     padding: 20%;
   }
-  .function {
-    width: 20%;
-   }
-
 
 }
 
@@ -170,9 +156,6 @@ button {
     width: 35px;
     height: 35px;
   }
-  .function {
-    /* width: 20%; */
-   }
 
 }
 
@@ -184,11 +167,6 @@ button {
 
   }
 
-  /* button {
- 
-    font-size: 16px;
-  }
-  */
 }
 
 @media(max-width:1100px) {
@@ -204,26 +182,13 @@ button {
     width: 35%;
   }
 }
-@media(max-width:1000px) {
-
-
-  .function {
-    width: 22%;
-
-    
-   }
-}
 
 @media(max-width:768px) {
   .wrapper-group {
     padding: 20px;
   }
 
-  .function {
-    width: 30%;
-
-   }
-   .filter input {
+  .filter input {
     width: 40%;
   }
   .warn {
@@ -244,7 +209,6 @@ button {
 @media(max-width:620px) {
   .functions {
     justify-content: space-between;
-
   }
 
   .function {
@@ -264,8 +228,6 @@ button {
 @media(max-width:425px) {
   .functions {
     display: block;
- 
-
 
   }
   .function {
@@ -294,9 +256,7 @@ button {
   .filter input {
     width: 45%;
   }
-  .header {
 
-  }
 }
 
 @media(max-width:425px) {

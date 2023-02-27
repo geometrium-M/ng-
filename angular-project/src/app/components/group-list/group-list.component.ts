@@ -25,11 +25,6 @@ export class GroupListComponent implements OnInit{
     this.groupList = this.GroupService.getGropuList()
   }
   
-  // modifGroup(id:number, name:string) {    
-  //   this.router.navigate(['/group',id])
-  //   this.actions.disableForm(false)
-  // }
-
   openGroup(id:number) { 
     this.router.navigate(['/group',id])
     this.actions.disableForm(true)
