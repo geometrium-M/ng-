@@ -1,4 +1,4 @@
-import { Injectable,OnInit } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { groupList as groups } from '../data/groupList';
 import { IGroup } from '../components/model/group';
 
@@ -23,7 +23,7 @@ export class GroupService{
   return this.groupList 
   }
 
-  getGroup(id:any) {
+  getGroup(id:number) {
     return this.groupList.find(group=> group.id == id)
   }
 
@@ -35,15 +35,15 @@ export class GroupService{
     this.groupList.push(group)
   }
 
-  modifyGroup(id:any, group:IGroup) {
-    let el = this.groupList.find(group=> group.id == id)
-    console.log(el)
+  modifyGroup(id:number, group:IGroup) {
+    const el = this.groupList.find(group=> group.id == id)
     if(el?.warning) group.warning = el.warning
-    this.groupList[this.groupList.indexOf(el!)] = group
+    if(el)
+    this.groupList[this.groupList.indexOf(el)] = group
   } 
 
   deleteGroup(id:number) {
-    let el = this.groupList.find(group=> group.id == id)
+    const el = this.groupList.find(group=> group.id == id)
     if(el) this.groupList.splice(groups.indexOf(el),1)
   }
 }

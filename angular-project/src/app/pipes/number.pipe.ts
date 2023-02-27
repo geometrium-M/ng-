@@ -7,7 +7,7 @@ import { DecimalPipe } from '@angular/common';
 export class NumberPipe implements PipeTransform {
   constructor(private decimalPipe:DecimalPipe){}
 
-  transform(value:any) {
+  transform(value:number) {
     if(value != 0) {
       return this.decimalPipe.transform(value,'1.2-2')
     }

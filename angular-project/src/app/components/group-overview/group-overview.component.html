@@ -71,8 +71,8 @@
                               <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
                                 <input  id="inpt" formControlName="minValue" [ngModel]="child.minValue"
                                   [ngClass]="{
-                                    'warning': ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
-                                    'warningDisabled':showGroup && ch.checked && (child.minValue != groupForm.controls['groupMinValue'].value),
+                                    'warning': ch.checked && (child.minValue !== groupForm.controls['groupMinValue'].value),
+                                    'warningDisabled':showGroup && ch.checked && (child.minValue !== groupForm.controls['groupMinValue'].value),
                                     'notWarning': showGroup && ch.checked,
                                     'notcheckedEnabled': !ch.checked,
                                     'required':ch.checked && function.controls[i].get('minValue')?.errors?.['required'] && !submitted
@@ -85,8 +85,8 @@
                               <div [ngClass]="{'disabledInput':showGroup && !ch.checked}">
                                   <input id="inpt" formControlName="maxValue" [ngModel]="child.maxValue"
                                       [ngClass]="{
-                                      'warning': ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
-                                      'warningDisabled':showGroup && ch.checked && (child.maxValue != groupForm.controls['groupMaxValue'].value),
+                                      'warning': ch.checked && (child.maxValue !== groupForm.controls['groupMaxValue'].value),
+                                      'warningDisabled':showGroup && ch.checked && (child.maxValue !== groupForm.controls['groupMaxValue'].value),
                                       'notWarning': showGroup && ch.checked,
                                       'notcheckedEnabled': !ch.checked,
                                       'required':ch.checked && function.controls[i].get('maxValue')?.errors?.['required'] && !submitted

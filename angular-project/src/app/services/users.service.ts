@@ -8,7 +8,7 @@ import { IUser } from '../components/model/user';
 export class UsersService {
   newUsersList:IUser[] = [...users]
 
-  constructor() { }
+
 
   getUsersList() {
     this.newUsersList.forEach(user=> user.userInitials=user.fullName.split(" ").map((n)=>n[0]).join(""))

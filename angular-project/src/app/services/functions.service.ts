@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { IFunctionElement } from '../components/model/functionElement';
-import { IFunction } from '../components/model/function';
 import { functionsList } from '../data/functions';
 
 @Injectable({

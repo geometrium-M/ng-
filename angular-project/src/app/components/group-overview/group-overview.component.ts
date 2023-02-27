@@ -32,21 +32,21 @@ export class GroupOverviewComponent implements OnInit {
   group?:IGroup;
   functionsNew: IFunctionElement[]
   usersList: IUser[]
-  functions:any
   usersFilter:string
-  newGroup: boolean = false
-  showGroup:boolean = false
+  newGroup = false
+  showGroup = false
   groupForm:FormGroup
   detailsForm:FormGroup
   usersForm:FormGroup
-  isChecked:boolean = true
-  submitted:boolean = true
+  isChecked = true
+  submitted = true
 
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')
+    
     if(!id) this.newGroup = true
-    let findGroup = this.GroupService.getGroup(id)
+    const findGroup = this.GroupService.getGroup(Number(id))
     this.group = findGroup
 
     this.groupForm = this.fb.group({
@@ -80,9 +80,8 @@ export class GroupOverviewComponent implements OnInit {
   get groupMaxValue() {
     return this.groupForm.get('groupMaxValue')
   }
-
   get function(): FormArray {
-	  return this.groupForm.get('functions') as FormArray;
+    return this.groupForm.get('functions') as FormArray;
   } 
 
   patch() {
@@ -94,23 +93,15 @@ export class GroupOverviewComponent implements OnInit {
     const usersControl = <FormArray>this.groupForm.get('users');
 
     for(let i=0;i<this.functionsNew.length;i++) {
-      let same =  this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name )  
-      let minValue
-      let maxValue
-    
-      if(same) {
-        minValue = same.minValue
-        maxValue = same.maxValue
-        functionsControl.push(this.patchValues(same.title, same.functionCode!,true, minValue, maxValue))
-      } 
-
-      if(!same) functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code, null, '0', '0'))
+      const same = this.group?.functions.find(item=> item.title == this.functionsNew[i].function_name )  
+      if(same) functionsControl.push(this.patchValues(same.title, same.functionCode,true, same.minValue, same.maxValue))
+      if(!same) functionsControl.push(this.patchValues(this.functionsNew[i].function_name, this.functionsNew[i].function_code, false, '0', '0'))
     }
 
     for(let i=0; i<this.usersList.length; i++) {
-      let same = this.group?.users.find(item=> item.userId == this.usersList[i].userId)
-      if(same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, true, this.usersList[i].userInitials!))
-      if(!same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, false, this.usersList[i].userInitials!))
+      const same = this.group?.users.find(item=> item.userId == this.usersList[i].userId)
+      if(same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, true, this.usersList[i].userInitials))
+      if(!same) usersControl.push(this.patchValuesUsers(this.usersList[i].fullName, this.usersList[i].userId, false, this.usersList[i].userInitials))
     }
   }
 
@@ -124,7 +115,7 @@ export class GroupOverviewComponent implements OnInit {
     })
   }
 
-  patchValuesUsers(fullName:string,userId:string,checked:boolean, userInitials:string) {
+  patchValuesUsers(fullName:string,userId:string,checked:boolean, userInitials?:string) {
     return this.fb.group({
       fullName: [fullName],
       userId: [userId],
@@ -152,9 +143,9 @@ export class GroupOverviewComponent implements OnInit {
       this.submitted = true
     }
     
-    let groupFunctions:IFunction[] = []
-    let groupUsers:IUser[] = []
-    let groupId:number = 0
+    const groupFunctions:IFunction[] = []
+    const groupUsers:IUser[] = []
+    const groupId = 0
 
     this.groupForm.value.functions.forEach((func:IFunction)=>{
       if(func.checked) {
@@ -180,8 +171,8 @@ export class GroupOverviewComponent implements OnInit {
       generatedGroup.id = Date.now()
       this.GroupService.addGroup(generatedGroup)
     }
-    if(!this.newGroup) {
-    generatedGroup.id =  this.group?.id!
+    if(!this.newGroup && this.group) {
+    generatedGroup.id = this.group.id
       this.GroupService.modifyGroup(this.group?.id, generatedGroup)
     }
 

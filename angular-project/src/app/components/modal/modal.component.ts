@@ -1,4 +1,4 @@
-import { Component,Output,EventEmitter,Input } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { GroupService } from 'src/app/services/group.service';
 
 @Component({

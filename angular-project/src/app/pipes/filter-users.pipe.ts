@@ -11,9 +11,9 @@ export class FilterUsersPipe implements PipeTransform {
     if(users.length === 0 || !filterString) {
       return users;
     }
-    let filteredUsers:IUser[] = []
+    const filteredUsers:IUser[] = []
 
-    for (let user of users ) {
+    for (const user of users ) {
       if(user.fullName.toLowerCase().includes(filterString.toLowerCase()) || 
         user.userInitials?.toLowerCase().includes(filterString.toLowerCase())) {
         filteredUsers.push(user)
